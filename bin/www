@@ -92,6 +92,11 @@ function onListening() {
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
 
+var jsonString = "{\"type\":\"touch\", \"x\":0, \"y\":0 }";
+var jsonObj = JSON.parse(jsonString);
+
 wss.on('connection', function(ws) {
-  ws.send(req.body);
+  setInterval(function(){
+    ws.send(jsonObj);
+  },10);
 });
