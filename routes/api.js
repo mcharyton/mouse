@@ -13,7 +13,7 @@ router.post('/send', function(req, res) {
     ws.send('test');
 
 });
-router.ws('/send',function(ws,req){
+router.ws('/client',function(ws,req){
     ws.on('message',function(msg){
         console.log(msg);
     });
