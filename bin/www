@@ -99,5 +99,5 @@ wss.on('connection', function connection(ws) {
 
 app.post('/data', function(req,res){
   wss.send(req.body);
-  res.sendStatus(200);
+  res.status(200);
 })
