@@ -1,7 +1,7 @@
 <html>
 <head>
-<link href="bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="style.css" rel="stylesheet" media="screen">
+<link href="stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="stylesheets/style.css" rel="stylesheet" media="screen">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <title>Joystick</title>
 
@@ -12,7 +12,7 @@
 <div id="container"></div>
 <div id="info">
 
-		<script src='virtualjoystick.js'></script>
+		<script src='javascripts/virtualjoystick.js'></script>
 		<script>
 			var joystick	= new VirtualJoystick({
 				container	: document.getElementById('container'),
@@ -34,7 +34,6 @@
 				//headers: { "Content-Type": "application/json"},
 				data: obj,
 				dataType: "json",
-				crossDomain: true,
 				success: function() {},
 				error: function() {}
 			});
@@ -75,8 +74,7 @@
 				  url: "http://167.114.242.19/api",
 				  data: data,
 				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
+				  dataType: "json"
 
 				});
 }
@@ -87,8 +85,7 @@ $.ajax({
 				  url: "http://167.114.242.19/api",
 				  data: data,
 				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
+				  dataType: "json"
 
 				});
 				}
@@ -101,8 +98,7 @@ function RButton() {
 				  url: "http://167.114.242.19/data",
 				  data: data,
 				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
+				  dataType: "json"
 
 				});
 }
