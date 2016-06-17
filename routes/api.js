@@ -14,7 +14,9 @@ var wss = new WebSocketServer({server: server});
 
 router.get('/', function(req,res){
     event.emit('koko');
+    res.statusCode = 200;
     console.log("Received "+req.body);
+    res.end();
 });
 
 router.post('/', function(req,res){
