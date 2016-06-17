@@ -10,11 +10,11 @@ var router = express.Router();
 /* POST users listing. */
 router.post('/send', function(req, res) {
 //    ws.send(req.body);
-    ws.send('test');
+    expressWs.getWss().send('test');
 
 });
 router.ws('/client',function(ws,req){
-    ws.on('connection',function(ws){
+    expressWs.getWss().on('connection',function(ws){
         console.log('Client Connected');
     });
 });
