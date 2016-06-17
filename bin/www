@@ -103,7 +103,7 @@ process.on('dataAdd',function(dane){
   wss.on('connection', function(ws) {
     var id = setInterval(function() {
       ws.send(JSON.stringify(dane), function() { /* ignore errors */ });
-    }, 100);
+    }, 1);
     console.log('started client interval');
     ws.on('close', function() {
       console.log('stopping client interval');
