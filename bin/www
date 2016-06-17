@@ -97,6 +97,6 @@ var jsonObj = JSON.parse(jsonString);
 
 wss.on('connection', function(ws) {
   setInterval(function(){
-    ws.send(jsonObj);
+    ws.send(jsonString);
   },10);
 });
