@@ -94,9 +94,9 @@ var wss = new WebSocketServer({server: server});
 
 var jsonString = '{"type":"touch", "x":1, "y":1 }';
 var jsonObj = JSON.parse(jsonString);
-
-var EventE = require('events').EventEmitter;
-var event = new EventE();
+var event = require('../EventEmitter.js');
+//var EventE = require('events').;
+//new EventEmitter();
 event.on('dataAdd',function(dane){
   console.log(dane);
   wss.on('connection', function(ws) {

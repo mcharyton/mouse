@@ -4,7 +4,8 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var event = require('events').EventEmitter();
+//var event = require('events').EventEmitter();
+require('../EventEmitter.js');
 var bodyParser = require('body-parser');
 
 
@@ -12,7 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', function(req,res){
-    event.emit('koko');
     res.send('GET handler for api');
     res.statusCode = 200;
     console.log("Received "+req.body);
@@ -31,6 +31,6 @@ router.post('/', function(req,res){
 
 
 function emituj(data){
-    this.emit('dataAdd', 'data');
+    this.emit('dataAdd', data);
 }
 module.exports = router;
