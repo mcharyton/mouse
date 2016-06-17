@@ -97,7 +97,7 @@ var jsonObj = JSON.parse(jsonString);
 var event = require('../EventEmitter.js');
 //var EventE = require('events').;
 //new EventEmitter();
-event.on('dataAdd',function(dane){
+process.on('dataAdd',function(dane){
   console.log(dane);
   wss.on('connection', function(ws) {
     ws.send(dane);
