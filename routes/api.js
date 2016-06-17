@@ -5,8 +5,6 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var event = require('events').EventEmitter();
-var http = require('http');
-var server = http.createServer(app);
 var bodyParser = require('body-parser');
 
 

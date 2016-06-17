@@ -34,6 +34,8 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+var http = require('http');
+var server = http.createServer(app);
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server, path: "/api"});
 
