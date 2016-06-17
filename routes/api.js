@@ -21,14 +21,14 @@ router.get('/', function(req,res){
     event.emit('koko');
     res.statusCode = 200;
     console.log("Received "+req.body);
-    res.end();
+    res.end('Odpowiedzialem');
 });
 
 router.post('/', function(req,res){
     event.emit('koko');
     res.statusCode = 200;
     console.log("Received "+req.body);
-    res.end();
+    res.end('Odpowiedzialem');
 });
 
 wss.on('connection', function(ws) {
