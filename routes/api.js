@@ -22,7 +22,8 @@ router.get('/', function(req,res){
 router.post('/', function(req,res){
    // event.emit('koko');
     var body = req.body;
-        console.log(body.y);
+    if(body.x!=='0' && body.y!=='0')
+        console.log(body);
     emit(body);
 
     res.send('POST handler for api');
@@ -32,7 +33,6 @@ router.post('/', function(req,res){
 
 function emit(data){
     event.call(this);
-    this.dane=data;
-    this.emit('dataAdd');
+    this.emit('dataAdd', data);
 }
 module.exports = router;
