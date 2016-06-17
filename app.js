@@ -3,18 +3,6 @@ var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-
-var dbN = 'mouse';
-var mongoUrl = 'mongodb://localhost/'+dbN;
-mongoose.connect(mongoUrl);
-
-var db = mongoose.connection;
-db.on('error',console.error.bind(console, 'mongo connection error:'));
-db.once('open',function(){
-  console.log("Connected correctly to mongo server db: " + dbN);
-});
-
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
