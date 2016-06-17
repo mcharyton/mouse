@@ -91,7 +91,7 @@ function onListening() {
 
 
 var WebSocketServer = require('ws').Server
-    , wss = new WebSocketServer('ws://167.114.242.19:3000/api');
+    , wss = new WebSocketServer({server: server});
 
 wss.on('connection', function connection(ws) {
   console.log('client connected');
