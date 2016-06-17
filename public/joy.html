@@ -1,0 +1,118 @@
+<html>
+<head>
+<link href="bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="style.css" rel="stylesheet" media="screen">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<title>Joystick</title>
+
+</head>
+<body>
+<div id="joy1">
+<div class="row text-center">
+<div id="container"></div>
+<div id="info">
+
+		<script src='virtualjoystick.js'></script>
+		<script>
+			var joystick	= new VirtualJoystick({
+				container	: document.getElementById('container'),
+				mouseSupport	: true,
+			});
+			joystick.addEventListener('touchStart', function(){
+				console.log('down')
+			})
+			joystick.addEventListener('touchEnd', function(){
+				console.log('up')
+			})
+
+			setInterval(function(){
+			var obj = {type:"touch", x: joystick.deltaY(), y: joystick.deltaX() };
+
+			$.ajax({
+				type: "POST",
+				url: "http://167.114.242.19/api",
+				//headers: { "Content-Type": "application/json"},
+				data: obj,
+				dataType: "json",
+				crossDomain: true,
+				success: function() {},
+				error: function() {}
+			});
+
+				var outputEl	= document.getElementById('result');
+				outputEl.innerHTML	=
+					 ' beta: '+joystick.deltaY() + '<br/>'
+					+ 'gamma: ' +joystick.deltaX() + '\n'
+			}, 1/5 * 1000);
+
+		</script>
+
+		</div>
+		<div id="result"></div>
+</div>
+</div>
+
+<div id="joy2">
+<div class="container">
+	<div class="row text-center">
+</div>
+		<div class="col-sm-4">
+		<input type="button"  id="button" value="L" onclick="LButton()">
+
+			</div>
+		<div class="col-sm-4">
+		<input type="button"  id="button" value="Double L" onclick="DoubleLButton()">
+
+		</div>
+		<div class="col-sm-4">
+		<input type="button"  id="button" value="R" onclick="RButton()">
+
+			<script>
+			function LButton() {
+				var data = { type: "btn", btn: "left" };
+				$.ajax({
+				  type: "GET",
+				  url: "http://167.114.242.19/api",
+				  data: data,
+				 // success: success,
+				  dataType: "jsonp",
+				  crossDomain: true
+
+				});
+}
+function DoubleLButton() {
+				var data = { type: "btn", btn: "doubleLeft" };
+$.ajax({
+				  type: "POST",
+				  url: "http://167.114.242.19/api",
+				  data: data,
+				 // success: success,
+				  dataType: "jsonp",
+				  crossDomain: true
+
+				});
+				}
+}
+function RButton() {
+				var data = { type: "btn", btn: "right" };
+
+	$.ajax({
+				  type: "POST",
+				  url: "http://167.114.242.19/data",
+				  data: data,
+				 // success: success,
+				  dataType: "jsonp",
+				  crossDomain: true
+
+				});
+}
+			</script>
+		</div>
+	</div>
+</div>
+
+<script src="jquery-2.0.3.min.js" ></script>
+<script src="bootstrap.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
