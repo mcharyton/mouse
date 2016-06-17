@@ -99,10 +99,8 @@ var event = require('../EventEmitter.js');
 //new EventEmitter();
 process.on('dataAdd',function(dane){
   console.log(dane);
-  var data = JSON.stringify(dane);
-  wss.broadcast = function broadcast() {
-    wss.clients.forEach(function each(client) {
-      client.send(data);
-    });
-  };
+  wss.on('message', function(ws) {
+    var data = JSON.stringify(dane);
+    ws.send(data);
+  });
 });
