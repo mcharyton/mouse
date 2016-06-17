@@ -19,6 +19,8 @@ db.once('open',function(){
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
+var joystick = require('./routes/joystick');
+var tilt = require('./routes/orientation');
 
 
 // view engine setup
@@ -32,6 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api', api);
+app.use('/joystick', joystick);
+app.use('/tilt', tilt);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
