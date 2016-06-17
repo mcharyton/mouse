@@ -31,7 +31,6 @@ router.post('/', function(req,res){
 
 
 function emituj(data){
-    event.call(this);
     console.log(data);
     this.emit('dataAdd', data);
 }
