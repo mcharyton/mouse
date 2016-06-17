@@ -97,8 +97,8 @@ var jsonObj = JSON.parse(jsonString);
 
 var event = require('events').EventEmitter();
 
-wss.on('connection', function(ws) {
-  event.on('dataAdd',function(dane){
+event.on('dataAdd',function(dane){
+  wss.on('connection', function(ws) {
     ws.send(dane);
-  })
+  });
 });
