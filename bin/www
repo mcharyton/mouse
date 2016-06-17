@@ -97,17 +97,17 @@ var jsonObj = JSON.parse(jsonString);
 var event = require('../EventEmitter.js');
 //var EventE = require('events').;
 //new EventEmitter();
-process.on('dataAdd',function(dane){
-  console.log(dane);
 
   wss.on('connection', function(ws) {
-    var id = setInterval(function() {
+  //  var id = setInterval(function() {
+    process.on('dataAdd',function(dane){
+      console.log(dane);
       ws.send(JSON.stringify(dane), function() { /* ignore errors */ });
-    }, 1);
-    console.log('started client interval');
+    //}, 1);
+    //console.log('started client interval');
     ws.on('close', function() {
       console.log('stopping client interval');
-      clearInterval(id);
+      //clearInterval(id);
     });
   });
 });
