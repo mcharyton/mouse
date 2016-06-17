@@ -26,9 +26,12 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-    event.emit('koko');
+   // event.emit('koko');
     res.send('POST handler for api');
    // console.log("Received "+req.body);
+    wss.on('connection', function(ws) {
+        ws.send(req.body);
+    });
     res.end('Odpowiedzialem');
 });
 
@@ -39,7 +42,7 @@ wss.on('connection', function(ws) {
     //  });
 
     // listen the event
-    event.on('koko', function(){
+    event.on('kokoa', function(){
         ws.send('cos');
     });
 });
