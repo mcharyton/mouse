@@ -34,17 +34,3 @@ router.post('/', function(req,res){
     });
     res.end('Odpowiedzialem');
 });
-
-wss.on('connection', function(ws) {
-    console.log('client connected');
-    //  ws.on('message', function(message) {
-    //    console.log('r : %s', message);
-    //  });
-
-    // listen the event
-    event.on('kokoa', function(){
-        ws.send('cos');
-    });
-});
-
-module.exports = router;
