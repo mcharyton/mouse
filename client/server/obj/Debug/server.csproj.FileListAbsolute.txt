@@ -1,0 +1,7 @@
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\bin\Debug\server.exe.config
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\bin\Debug\server.exe
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\bin\Debug\server.pdb
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\bin\Debug\websocket-sharp.dll
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\bin\Debug\websocket-sharp.pdb
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\obj\Debug\server.exe
+C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\server\obj\Debug\server.pdb
