@@ -26,9 +26,9 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-    event.emit('koko');
-    res.send('POST handler for api');
-    console.log("Received "+req.body);
+ //   event.emit('koko');
+   // res.send('POST handler for api');
+   // console.log("Received "+req.body);
     res.end('Odpowiedzialem');
 });
 
