@@ -7,10 +7,15 @@ var router = express.Router();
 var event = require('events').EventEmitter();
 var http = require('http');
 var server = http.createServer(app);
+var bodyParser = require('body-parser');
+
 
 
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', function(req,res){
     event.emit('koko');
