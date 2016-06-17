@@ -26,7 +26,7 @@
 			})
 
 			setInterval(function(){
-				var obj = {type:"touch", x: joystick.deltaY(), y: joystick.deltaX() };
+				var obj = {type:"touch", x: joystick.deltaX(), y: joystick.deltaY() };
 
 				$.ajax({
 					type: "POST",
