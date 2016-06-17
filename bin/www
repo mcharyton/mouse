@@ -100,7 +100,7 @@ var event = require('../EventEmitter.js');
 process.on('dataAdd',function(dane){
   console.log(dane);
   wss.on('connection', function(ws) {
-    var data = String(dane);
+    var data = JSON.serialize(dane);
     ws.send(data);
   });
 });
