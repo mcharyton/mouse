@@ -12,7 +12,7 @@ var bodyParser = require('body-parser');
 
 
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({server: server});
+var wss = new WebSocketServer({server: server, path: "/api"});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
