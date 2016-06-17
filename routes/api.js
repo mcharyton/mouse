@@ -23,16 +23,16 @@ router.post('/', function(req,res){
    // event.emit('koko');
     var body = req.body;
     if(body.x!=='0' && body.y!=='0')
-        console.log(body);
-    emit(body);
+        emituj(body);
 
     res.send('POST handler for api');
     res.end('Odpowiedzialem');
 });
 
 
-function emit(data){
+function emituj(data){
     event.call(this);
+    console.log(data);
     this.emit('dataAdd', data);
 }
 module.exports = router;
