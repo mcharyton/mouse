@@ -34,3 +34,5 @@ router.post('/', function(req,res){
     });
     res.end('Odpowiedzialem');
 });
+
+module.exports = router;
