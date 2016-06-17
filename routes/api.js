@@ -14,8 +14,8 @@ router.post('/send', function(req, res) {
 
 });
 router.ws('/client',function(ws,req){
-    ws.on('message',function(msg){
-        console.log(msg);
+    ws.on('connection',function(ws){
+        console.log('Client Connected');
     });
 });
 
