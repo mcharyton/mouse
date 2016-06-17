@@ -5,6 +5,23 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+var WebSocketServer = require('ws').Server
+    , wss = new WebSocketServer({ port: 8081});
+
+wss.on('connection', function connection(ws) {
+  console.log('client connected');
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+
+  var jsonString = "{\"type\":\"touch\", \"x\":0, \"y\":0 }";
+  var jsonObj = JSON.parse(jsonString);
+  console.log(jsonObj.key);
+  /*setInterval(function(){
+   ws.send(jsonString);
+   },10);*/
+});
+
 
 var dbN = 'mouse';
 var mongoUrl = 'mongodb://localhost/'+dbN;
