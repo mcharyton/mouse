@@ -1,21 +1,47 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  header
+    .container.text-center
+      h4
+        a(href="http://www.ee.pw.edu.pl/") Politechnika Warszawska - Wydział Elektryczny
+      h1 Projekt aplikacji do sterowania kursorem myszy z wykorzystaniem smartfona w systemie Windows
+      h1
+        a(href="#offer")
+          img(src="images/arrow.png")
   .offer
     .container
       .row.text-center
         p.lead
           h3
-            .white Aplikacja zastępuje domyślny ruch kursora wykonywany przez mysz komputerową na rzecz urządzenia mobilnego (smartfona)<br /><br />Dostępne są dwie możliwości:</div><br />	<br/>
-              .col-md-6
-                img(src="/images/acc.jpg")
-                h4 Sterowanie smartfonem wyposażonym w akcelerometr poprzez przechylanie urządzenia w różnych kierunkach
-              .col-md-6
-                img(src="/images/touchpad.jpg")
-                h4 Sterowanie smartfonem poprzez ruch palca po ekranie urządzenia w wyznaczonym obszarze
+            .white
+              | Aplikacja zastępuje domyślny ruch kursora wykonywany przez mysz komputerową na rzecz urządzenia mobilnego (smartfona)
+              | <br><br>
+              | Dostępne są dwie możliwości:
 
-  .container
-    .row.text-center
-      p.lead Projekt zespołowy pod opieką dr Tomasza Lesia, 2016r. &copy; Wszelkie prawa zastrzeżone.
+            .col-md-6
+              img(src="/images/acc.jpg")
+              h4 Sterowanie smartfonem wyposażonym w akcelerometr poprzez przechylanie urządzenia w różnych kierunkach
+            .col-md-6
+              img(src="/images/touchpad.jpg")
+              h4 Sterowanie smartfonem poprzez ruch palca po ekranie urządzenia w wyznaczonym obszarze
+      .row.text-center
+        h1
+          a(href="#description", class="btn btn-lg btn-custom") Rozpocznij sterowanie
+  .description
+    .container
+      .row.text-center
+        p.lead
+          .row
+            .col-md-6
+              h1
+                a(href="/tilt", class="btn btn-lg  btn-warning btn-custom2") steruj z użyciem akcelerometru
+            .col-md-6
+              h1
+                a(href="/joystick", class="btn btn-lg  btn-warning btn-custom2") steruj z użyciem joysticka
+  footer
+    .container
+      .row.text-center
+        p.lead
+          | Projekt zespołowy pod opieką dr Tomasza Lesia, 2016r. <br>
+          |&copy; Wszelkie prawa zastrzeżone.

@@ -8,7 +8,9 @@ var router = express.Router();
 
 /* POST users listing. */
 router.post('/send', function(req, res) {
-    ws.send(req.body);
+//    ws.send(req.body);
+    ws.send('test');
+
 });
 
 module.exports = router;
