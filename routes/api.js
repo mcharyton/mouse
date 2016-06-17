@@ -11,8 +11,6 @@ var bodyParser = require('body-parser');
 
 
 
-var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({server: server, path: "/api"});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,9 +27,6 @@ router.post('/', function(req,res){
    // event.emit('koko');
     res.send('POST handler for api');
    // console.log("Received "+req.body);
-    wss.on('connection', function(ws) {
-        ws.send(req.body);
-    });
     res.end('Odpowiedzialem');
 });
 

@@ -34,6 +34,13 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({server: server, path: "/api"});
+
+wss.on('connection', function(ws) {
+  ws.send(req.body);
+});
+
 // error handlers
 
 // development error handler
