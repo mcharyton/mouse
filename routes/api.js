@@ -23,7 +23,7 @@ router.post('/', function(req,res){
    // event.emit('koko');
     var body = req.body;
     if(body.x!=='0' && body.y!=='0')
-        emituj(json.stringify(body));
+        emituj(body);
 
     res.send('POST handler for api');
     res.end('Odpowiedzialem');
