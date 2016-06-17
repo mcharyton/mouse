@@ -19,7 +19,7 @@ router.get('/', function(req,res){
 
 router.post('/', function(req,res){
     event.emit('koko');
-    res.statusCode(200);
+    res.statusCode = 200;
     console.log("Received "+req.body);
     res.end();
 });
