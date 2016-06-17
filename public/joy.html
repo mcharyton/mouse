@@ -12,7 +12,7 @@
 <div id="container"></div>
 <div id="info">
 
-		<script src='javascripts/virtualjoystick.js'></script>
+		<script src='javascripts/VirtualJoystick.js'></script>
 		<script>
 			var joystick	= new VirtualJoystick({
 				container	: document.getElementById('container'),
@@ -26,22 +26,22 @@
 			})
 
 			setInterval(function(){
-			var obj = {type:"touch", x: joystick.deltaY(), y: joystick.deltaX() };
+				var obj = {type:"touch", x: joystick.deltaY(), y: joystick.deltaX() };
 
-			$.ajax({
-				type: "POST",
-				url: "http://167.114.242.19/api",
-				//headers: { "Content-Type": "application/json"},
-				data: obj,
-				dataType: "json",
-				success: function() {},
-				error: function() {}
-			});
+				$.ajax({
+					type: "POST",
+					url: "http://167.114.242.19/api",
+					//headers: { "Content-Type": "application/json"},
+					data: obj,
+					dataType: "json",
+					success: function() {},
+					error: function() {}
+				});
 
-				var outputEl	= document.getElementById('result');
-				outputEl.innerHTML	=
-					 ' beta: '+joystick.deltaY() + '<br/>'
-					+ 'gamma: ' +joystick.deltaX() + '\n'
+					var outputEl	= document.getElementById('result');
+					outputEl.innerHTML	=
+						 ' beta: '+joystick.deltaY() + '<br/>'
+						+ 'gamma: ' +joystick.deltaX() + '\n'
 			}, 1/5 * 1000);
 
 		</script>
@@ -88,7 +88,7 @@ $.ajax({
 				  dataType: "json"
 
 				});
-				}
+
 }
 function RButton() {
 				var data = { type: "btn", btn: "right" };
