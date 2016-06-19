@@ -43,7 +43,7 @@ function handleOrientation(event) {
 var lastMove = 0;
 document.addEventListener('deviceorientation', function() {
   // do nothing if last move was less than 100 ms ago
-  if(Date.now() - lastMove > 100) {
+  if(Date.now() - lastMove > 40) {
     handleOrientation(this);
     lastMove = Date.now();
   }
