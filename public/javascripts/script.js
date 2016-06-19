@@ -13,8 +13,8 @@ function handleOrientation(event) {
   // do nothing if last move was less than 100 ms ago
   if(Date.now() - lastMove > 100) {
 
-  var x = event.beta;  // In degree in the range [-180,180]
-  var y = event.gamma; // In degree in the range [-90,90]
+  var x = event.gamma;  // In degree in the range [-180,180]
+  var y = event.beta; // In degree in the range [-90,90]
 
 
   // Because we don't want to have the device upside down
