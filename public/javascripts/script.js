@@ -37,4 +37,4 @@ function toInt(i){
   return i | 0;
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
-setInterval(handleOrientation('deviceorientation'),(1*1000));
+setInterval(handleOrientation('deviceorientation'),100);
