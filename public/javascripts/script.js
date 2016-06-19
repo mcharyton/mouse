@@ -38,4 +38,12 @@ function toInt(i){
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
 //setInterval(handleOrientation('deviceorientation'),100);
-window.addEventListener('deviceorientation', handleOrientation)
+var lastMove = 0;
+document.addEventListener('deviceorientation', function(e) {
+  // do nothing if last move was less than 40 ms ago
+  if(Date.now() - lastMove > 40) {
+    handleOrientation(e);
+    lastMove = Date.now();
+  }
+});
+//window.addEventListener('deviceorientation', handleOrientation)
