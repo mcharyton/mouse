@@ -7,8 +7,12 @@ var maxY = garden.clientHeight - ball.clientHeight;
 
 //var lastY;
 //var lastX;
+var lastMove = 0;
 
 function handleOrientation(event) {
+  // do nothing if last move was less than 100 ms ago
+  if(Date.now() - lastMove > 100) {
+
   var x = event.beta;  // In degree in the range [-180,180]
   var y = event.gamma; // In degree in the range [-90,90]
 
@@ -37,15 +41,10 @@ function handleOrientation(event) {
   ball.style.left = (maxY*y/180 - 10) + "px";
   //lastY = yInt;
   //lastX = xInt;
+    lastMove = Date.now();
+  } else return
+
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
 //setInterval(handleOrientation('deviceorientation'),100);
-//var lastMove = 0;
-//document.addEventListener('deviceorientation', function() {
-//  // do nothing if last move was less than 100 ms ago
-//  if(Date.now() - lastMove > 40x) {
-//    handleOrientation(this);
-//    lastMove = Date.now();
-//  }
-//});
 window.addEventListener('deviceorientation', handleOrientation)
