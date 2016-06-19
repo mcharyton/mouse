@@ -21,8 +21,8 @@ function handleOrientation(event) {
   // x and y to [0,180]
   x += 90;
   y += 90;
-  var xInt = toInt(x);
-  var yInt = toInt(y);
+  var xInt = Math.floor(x);
+  var yInt = Math.floor(y);
   var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
     sendAjax(data);
