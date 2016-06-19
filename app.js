@@ -23,6 +23,9 @@ app.use('/api', api);
 app.get('/tilt', function(req,res){
   res.sendFile(__dirname + '/public/orientation.html');
 });
+app.get('/easter', function(req,res){
+  res.sendFile(__dirname + '/public/easter.html');
+});
 app.get('/joystick', function(req,res){
   res.sendFile(__dirname + '/public/joy.html');
 });
