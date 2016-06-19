@@ -99,10 +99,10 @@ var event = require('../EventEmitter.js');
 //new EventEmitter();
 
   wss.on('connection', function(ws) {
-    process.on('dataAdd',function(dane){
+    process.once('dataAdd',function(dane){
       console.log(dane);
       ws.send(JSON.stringify(dane), function() { /* ignore errors */ });
-    ws.on('close', function() {
+    ws.once('close', function() {
       console.log('stopping client interval');
     });
   });
