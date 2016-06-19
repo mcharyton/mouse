@@ -21,7 +21,9 @@ function handleOrientation(event) {
   // x and y to [0,180]
   x += 90;
   y += 90;
-
+  var data = {type: "touch", x: x, y: y};
+  //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
+    sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
   ball.style.top  = (maxX*x/180 - 10) + "px";
