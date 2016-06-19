@@ -6,6 +6,7 @@
     <title>Joystick</title>
     <script src='javascripts/VirtualJoystick.js'>
     </script><script src="javascripts/global.js"></script>
+    <script src="javascripts/jquery-2.0.3.min.js"></script>
 
 
 </head>
@@ -28,14 +29,14 @@
                 });
 
                 setInterval(function () {
-                    if(joystick.deltaX()!=="0" && joystick.deltaY()!=="0") {
+                    if(joystick.deltaX()!==0 && joystick.deltaY()!==0) {
                         var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
                         sendAjax(data);
 
                         var outputEl = document.getElementById('result');
                         outputEl.innerHTML =
-                                ' beta: ' + joystick.deltaY() + '<br/>'
-                                + 'gamma: ' + joystick.deltaX() + '\n'
+                                ' Y: ' + joystick.deltaY() + '<br/>'
+                                + 'X: ' + joystick.deltaX() + '\n'
                     }
                 }, 1 / 5 * 100);
 
@@ -65,7 +66,6 @@
     </div>
 </div>
 
-<script src="javascripts/jquery-2.0.3.min.js"></script>
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/script.js"></script>
 </body>
