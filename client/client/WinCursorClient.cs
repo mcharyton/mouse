@@ -25,6 +25,14 @@ namespace client
         [DllImport("User32.Dll")]
         public static extern IntPtr GetDesktopWindow();
 
+        [DllImport("User32.Dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, UIntPtr dwExtraInfo);
+
+        public const uint MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const uint MOUSEEVENTF_LEFTUP = 0x04;
+        public const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
+        public const uint MOUSEEVENTF_RIGHTUP = 0x10;
+
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {
