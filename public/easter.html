@@ -19,6 +19,8 @@
             Z=Math.round(Z*100)/100;
             if(Z>maxG)
                     maxG=Z;
+            if(maxG>10.00)
+                    alert("Siema!");
             if (lastClick[0]-X>1||lastClick[1]-Y>1){
                 document.getElementById("accelerometer").innerHTML = "Accelerometer: "
                         + X + ", "
