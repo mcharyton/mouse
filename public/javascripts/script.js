@@ -5,6 +5,9 @@ var output = document.querySelector('.output');
 var maxX = garden.clientWidth  - ball.clientWidth;
 var maxY = garden.clientHeight - ball.clientHeight;
 
+var lastY = 0;
+var lastX = 0;
+
 function handleOrientation(event) {
   var x = event.beta;  // In degree in the range [-180,180]
   var y = event.gamma; // In degree in the range [-90,90]
@@ -26,22 +29,21 @@ function handleOrientation(event) {
   output.innerHTML += "gamma: " + yInt + "\n";
   var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
-  if(xInt!==-1 && yInt !==-1)
+  if(lastX!==xInt || lastY!==yInt)
     sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
   ball.style.top  = (maxX*x/180 - 10) + "px";
   ball.style.left = (maxY*y/180 - 10) + "px";
-}
-function toInt(i){
-  return i | 0;
+  lastY = yInt;
+  lastX = xInt;
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
 //setInterval(handleOrientation('deviceorientation'),100);
 var lastMove = 0;
 document.addEventListener('deviceorientation', function(e) {
-  // do nothing if last move was less than 40 ms ago
-  if(Date.now() - lastMove > 40) {
+  // do nothing if last move was less than 100 ms ago
+  if(Date.now() - lastMove > 100) {
     handleOrientation(e);
     lastMove = Date.now();
   }
