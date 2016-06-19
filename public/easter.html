@@ -11,14 +11,14 @@
         var color='#fff';
         var maxG;
         function motion(event){
-            var X=event.accelerationIncludingGravity.x;
+            var X=event.acceleration.x;
             X=(X*25);
-            var Y=event.accelerationIncludingGravity.y;
+            var Y=event.acceleration.y;
             Y=(Y*(-25));
             var Z=event.acceleration.z;
             Z=Math.round(Z*100)/100;
-            if(X>maxG)
-                    maxG=X;
+            if(Z>maxG)
+                    maxG=Z;
             if (lastClick[0]-X>1||lastClick[1]-Y>1){
                 document.getElementById("accelerometer").innerHTML = "Accelerometer: "
                         + X + ", "
