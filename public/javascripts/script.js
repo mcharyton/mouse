@@ -5,8 +5,8 @@ var output = document.querySelector('.output');
 var maxX = garden.clientWidth  - ball.clientWidth;
 var maxY = garden.clientHeight - ball.clientHeight;
 
-var lastY = 0;
-var lastX = 0;
+var lastY;
+var lastX;
 
 function handleOrientation(event) {
   var x = event.beta;  // In degree in the range [-180,180]
@@ -30,7 +30,7 @@ function handleOrientation(event) {
   var data = {type: "touch", x: xInt, y: yInt};
   console.log(data);
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
-  if(xInt!=lastX || yInt!==lastY)
+  //if(xInt!=lastX || yInt!==lastY)
     sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
