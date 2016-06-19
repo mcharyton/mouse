@@ -91,15 +91,12 @@ function onListening() {
 
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
-var lastData;
+
 wss.on('connection', function (ws) {
     process.on('dataAdd', function (dane) {
-        if(dane!==lastData) {
             console.log(dane);
             ws.send(JSON.stringify(dane), function () { /* ignore errors */
             });
-        }
-        lastData=dane;
     });
     ws.on('close', function () {
         console.log('stopping client interval');
