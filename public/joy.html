@@ -1,118 +1,76 @@
 <html>
 <head>
-<link href="bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="style.css" rel="stylesheet" media="screen">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<title>Joystick</title>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/style.css" rel="stylesheet" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <title>Joystick</title>
+    <script src='javascripts/VirtualJoystick.js'>
+    </script><script src="javascripts/global.js"></script>
+    <script src="javascripts/jquery-2.0.3.min.js"></script>
+
 
 </head>
 <body>
 <div id="joy1">
-<div class="row text-center">
-<div id="container"></div>
-<div id="info">
+    <div class="row text-center">
+        <div id="container"></div>
+        <div id="info">
 
-		<script src='virtualjoystick.js'></script>
-		<script>
-			var joystick	= new VirtualJoystick({
-				container	: document.getElementById('container'),
-				mouseSupport	: true,
-			});
-			joystick.addEventListener('touchStart', function(){
-				console.log('down')
-			})
-			joystick.addEventListener('touchEnd', function(){
-				console.log('up')
-			})
+            <script>
+                var joystick = new VirtualJoystick({
+                    container: document.getElementById('container'),
+                    mouseSupport: true,
+                });
+                joystick.addEventListener('touchStart', function () {
+                    console.log('down')
+                });
+                joystick.addEventListener('touchEnd', function () {
+                    console.log('up')
+                });
+                var lastY;
+                var lastX;
 
-			setInterval(function(){
-			var obj = {type:"touch", x: joystick.deltaY(), y: joystick.deltaX() };
+                setInterval(function () {
+                        var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
+                        if(joystick.deltaX()!=lastX || joystick.deltaY()!==lastY)
+                            sendAjax(data);
+                        var outputEl = document.getElementById('result');
+                        outputEl.innerHTML =
+                                ' Y: ' + joystick.deltaY() + '<br/>'
+                                + 'X: ' + joystick.deltaX() + '\n'
 
-			$.ajax({
-				type: "POST",
-				url: "http://167.114.242.19/api",
-				//headers: { "Content-Type": "application/json"},
-				data: obj,
-				dataType: "json",
-				crossDomain: true,
-				success: function() {},
-				error: function() {}
-			});
 
-				var outputEl	= document.getElementById('result');
-				outputEl.innerHTML	=
-					 ' beta: '+joystick.deltaY() + '<br/>'
-					+ 'gamma: ' +joystick.deltaX() + '\n'
-			}, 1/5 * 1000);
+                        lastY = joystick.deltaY();
+                        lastX = joystick.deltaX();
+                }, 1 / 5 * 100);
 
-		</script>
+            </script>
 
-		</div>
-		<div id="result"></div>
-</div>
+        </div>
+        <div id="result"></div>
+    </div>
 </div>
 
 <div id="joy2">
-<div class="container">
-	<div class="row text-center">
-</div>
-		<div class="col-sm-4">
-		<input type="button"  id="button" value="L" onclick="LButton()">
+    <div class="container">
+        <div class="row text-center">
+        </div>
+        <div class="col-sm-4">
+            <input type="button" id="buttonL" value="L" onclick="LButton()">
 
-			</div>
-		<div class="col-sm-4">
-		<input type="button"  id="button" value="Double L" onclick="DoubleLButton()">
+        </div>
+        <div class="col-sm-4">
+            <input type="button" id="buttonLL" value="Double L" onclick="DoubleLButton()">
 
-		</div>
-		<div class="col-sm-4">
-		<input type="button"  id="button" value="R" onclick="RButton()">
+        </div>
+        <div class="col-sm-4">
+            <input type="button" id="buttonR" value="R" onclick="RButton()">
 
-			<script>
-			function LButton() {
-				var data = { type: "btn", btn: "left" };
-				$.ajax({
-				  type: "GET",
-				  url: "http://167.114.242.19/api",
-				  data: data,
-				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
-
-				});
-}
-function DoubleLButton() {
-				var data = { type: "btn", btn: "doubleLeft" };
-$.ajax({
-				  type: "POST",
-				  url: "http://167.114.242.19/api",
-				  data: data,
-				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
-
-				});
-				}
-}
-function RButton() {
-				var data = { type: "btn", btn: "right" };
-
-	$.ajax({
-				  type: "POST",
-				  url: "http://167.114.242.19/data",
-				  data: data,
-				 // success: success,
-				  dataType: "jsonp",
-				  crossDomain: true
-
-				});
-}
-			</script>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
-<script src="jquery-2.0.3.min.js" ></script>
-<script src="bootstrap.min.js"></script>
-<script src="script.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/script.js"></script>
 </body>
 </html>
