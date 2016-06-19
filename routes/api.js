@@ -18,12 +18,12 @@ router.get('/', function(req,res){
     console.log("Received "+req.body);
     res.end('Odpowiedzialem');
 });
-
+var lastBody;
 router.post('/', function(req,res){
     var body = req.body;
-//    if(body.x!=='0' && body.y!=='0')
+    if(body!==lastBody)
         emituj(body);
-
+    lastBody=body;
 
     res.send('POST handler for api');
     res.end('Odpowiedzialem');
