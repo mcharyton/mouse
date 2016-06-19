@@ -15,8 +15,6 @@ function RButton() {
 }
 
 function sendAjax(data) {
-    console.log(data);
-    data=JSON.stringify(data);
     $.ajax({
         type: "POST",
         url: "http://167.114.242.19/api",
