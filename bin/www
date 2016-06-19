@@ -100,8 +100,8 @@ wss.on('connection', function (ws) {
             });
         }
         lastData=dane;
-    });
-    ws.on('close', function () {
-        console.log('stopping client interval');
+        ws.on('close', function () {
+            console.log('stopping client interval');
+        });
     });
 });
