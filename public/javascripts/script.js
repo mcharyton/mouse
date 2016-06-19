@@ -19,8 +19,8 @@ function handleOrientation(event) {
 
   // To make computation easier we shift the range of 
   // x and y to [0,180]
-  x += 90;
-  y += 90;
+  //x += 90;
+  //y += 90;
   var xInt = Math.floor(x);
   var yInt = Math.floor(y);
   var data = {type: "touch", x: xInt, y: yInt};
