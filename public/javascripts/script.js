@@ -28,8 +28,9 @@ function handleOrientation(event) {
   output.innerHTML  = "beta : " + xInt + "\n";
   output.innerHTML += "gamma: " + yInt + "\n";
   var data = {type: "touch", x: xInt, y: yInt};
+  console.log(data);
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
-  if(xInt!==lastX || yInt!==lastY)
+  if(xInt!=lastX || yInt!==lastY)
     sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
@@ -41,10 +42,10 @@ function handleOrientation(event) {
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
 //setInterval(handleOrientation('deviceorientation'),100);
 var lastMove = 0;
-document.addEventListener('deviceorientation', function(e) {
+document.addEventListener('deviceorientation', function() {
   // do nothing if last move was less than 100 ms ago
   if(Date.now() - lastMove > 100) {
-    handleOrientation(e);
+    handleOrientation(this);
     lastMove = Date.now();
   }
 });
