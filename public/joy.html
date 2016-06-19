@@ -70,7 +70,7 @@
 			function LButton() {
 				var data = { type: "btn", btn: "left" };
 				$.ajax({
-				  type: "GET",
+				  type: "POST",
 				  url: "http://167.114.242.19/api",
 				  data: data,
 				 // success: success,
@@ -95,7 +95,7 @@ function RButton() {
 
 	$.ajax({
 				  type: "POST",
-				  url: "http://167.114.242.19/data",
+				  url: "http://167.114.242.19/api",
 				  data: data,
 				 // success: success,
 				  dataType: "json"
