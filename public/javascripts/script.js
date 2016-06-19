@@ -40,12 +40,12 @@ function handleOrientation(event) {
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
 //setInterval(handleOrientation('deviceorientation'),100);
-var lastMove = 0;
-document.addEventListener('deviceorientation', function() {
-  // do nothing if last move was less than 100 ms ago
-  if(Date.now() - lastMove > 40) {
-    handleOrientation(this);
-    lastMove = Date.now();
-  }
-});
-//window.addEventListener('deviceorientation', handleOrientation)
+//var lastMove = 0;
+//document.addEventListener('deviceorientation', function() {
+//  // do nothing if last move was less than 100 ms ago
+//  if(Date.now() - lastMove > 40x) {
+//    handleOrientation(this);
+//    lastMove = Date.now();
+//  }
+//});
+window.addEventListener('deviceorientation', handleOrientation)
