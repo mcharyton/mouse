@@ -21,7 +21,7 @@ router.get('/', function(req,res){
 
 router.post('/', function(req,res){
     var body = req.body;
-    if(body.x!=='0' && body.y!=='0')
+//    if(body.x!=='0' && body.y!=='0')
         emituj(body);
 
 
