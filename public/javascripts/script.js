@@ -20,7 +20,7 @@ function handleOrientation(event) {
   x += 90;
   y += 90;
   var xInt = Math.floor(x)-90;
-  var yInt = Math.floor(x)-90;
+  var yInt = Math.floor(y)-90;
 
   output.innerHTML  = "beta : " + xInt + "\n";
   output.innerHTML += "gamma: " + yInt + "\n";
@@ -37,4 +37,5 @@ function toInt(i){
   return i | 0;
 }
 //setInterval(window.addEventListener('deviceorientation', handleOrientation),(1/5 *1000));
-setInterval(handleOrientation('deviceorientation'),100);
+//setInterval(handleOrientation('deviceorientation'),100);
+window.addEventListener('deviceorientation', handleOrientation)
