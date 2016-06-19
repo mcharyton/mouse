@@ -11,7 +11,7 @@ var lastMove = 0;
 
 function handleOrientation(event) {
   // do nothing if last move was less than 100 ms ago
-  if(Date.now() - lastMove > 200) {
+  if(Date.now() - lastMove > 50) {
 
     var x = event.gamma;  // In degree in the range [-180,180]
     var y = event.beta; // In degree in the range [-90,90]
