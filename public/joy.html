@@ -28,7 +28,7 @@
                 });
 
                 setInterval(function () {
-                    if(joystick.deltaX()!==0 || joystick.deltaY()!==0) {
+                    if(joystick.deltaX()!=="0" || joystick.deltaY()!=="0") {
                         var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
                         sendAjax(data);
 
