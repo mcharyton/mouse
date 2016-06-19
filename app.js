@@ -4,10 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
 var api = require('./routes/api');
-var joystick = require('./routes/joystick');
-var tilt = require('./routes/orientation');
 
 
 // view engine setup
@@ -19,11 +16,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.get('/', function(req,res){
+  res.sendFile(__dirname + '/public/index.html');
+});
 app.use('/api', api);
-app.use('/joystick', joystick);
-app.use('/tilt', tilt);
-app.get('/joy', function(req,res){
+app.get('/tilt', function(req,res){
+  res.sendFile(__dirname + '/public/orientation.html');
+});
+app.get('/joystick', function(req,res){
   res.sendFile(__dirname + '/public/joy.html');
 });
 
@@ -39,15 +39,15 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
+//if (app.get('env') === 'development') {
+//  app.use(function(err, req, res, next) {
+//    res.status(err.status || 500);
+//    res.render('error', {
+//      message: err.message,
+//      error: err
+//    });
+//  });
+//}
 
 // production error handler
 // no stacktraces leaked to user
