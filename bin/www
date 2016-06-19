@@ -104,7 +104,7 @@ wss.on('connection', function (ws) {
         ws.send(JSON.stringify(dane), function () { /* ignore errors */
         });
     });
-    ws.once('close', function () {
+    ws.on('close', function () {
         console.log('stopping client interval');
     });
 });
