@@ -4,6 +4,32 @@
     <link href="stylesheets/style.css" rel="stylesheet" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <title>Joystick</title>
+    <script src='javascripts/VirtualJoystick.js'></script>
+
+    <script>
+        var joystick = new VirtualJoystick({
+            container: document.getElementById('container'),
+            mouseSupport: true,
+        });
+        joystick.addEventListener('touchStart', function () {
+            console.log('down')
+        });
+        joystick.addEventListener('touchEnd', function () {
+            console.log('up')
+        });
+
+        setInterval(function () {
+            var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
+            sendAjax(data);
+
+            var outputEl = document.getElementById('result');
+            outputEl.innerHTML =
+                    ' beta: ' + joystick.deltaY() + '<br/>'
+                    + 'gamma: ' + joystick.deltaX() + '\n'
+        }, 1 / 5 * 100);
+
+    </script>
+
 
 </head>
 <body>
@@ -11,31 +37,6 @@
     <div class="row text-center">
         <div id="container"></div>
         <div id="info">
-
-            <script src='javascripts/VirtualJoystick.js'></script>
-            <script>
-                var joystick = new VirtualJoystick({
-                    container: document.getElementById('container'),
-                    mouseSupport: true,
-                });
-                joystick.addEventListener('touchStart', function () {
-                    console.log('down')
-                });
-                joystick.addEventListener('touchEnd', function () {
-                    console.log('up')
-                });
-
-                setInterval(function () {
-                    var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
-                    sendAjax(data);
-
-                    var outputEl = document.getElementById('result');
-                    outputEl.innerHTML =
-                            ' beta: ' + joystick.deltaY() + '<br/>'
-                            + 'gamma: ' + joystick.deltaX() + '\n'
-                }, 1 / 5 * 100);
-
-            </script>
 
         </div>
         <div id="result"></div>
