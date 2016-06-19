@@ -20,10 +20,11 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-    console.log(res.body);
     var body = req.body;
-    if(body.x!=='0' && body.y!=='0')
+    if(body.x!=='0' && body.y!=='0') {
         emituj(body);
+        console.log(res.body);
+    }
 
     res.send('POST handler for api');
     res.end('Odpowiedzialem');

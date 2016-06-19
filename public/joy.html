@@ -29,15 +29,13 @@
                 });
 
                 setInterval(function () {
-                    if(joystick.deltaX()!==0 && joystick.deltaY()!==0) {
                         var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
-                        sendAjax(data);
-
+                        if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
+                            sendAjax(data);
                         var outputEl = document.getElementById('result');
                         outputEl.innerHTML =
                                 ' Y: ' + joystick.deltaY() + '<br/>'
                                 + 'X: ' + joystick.deltaX() + '\n'
-                    }
                 }, 1 / 5 * 100);
 
             </script>
