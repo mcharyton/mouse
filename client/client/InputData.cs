@@ -20,8 +20,13 @@ namespace client
         [DataMember]
         public int y;
 
-        [DataMember]
-        public int z;
+        public InputData()
+        {
+            type = "";
+            btn = "";
+            x = 0;
+            y = 0;
+        }
 
         public string Serialize()
         {

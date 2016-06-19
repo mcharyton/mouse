@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server", "server\server.csproj", "{5CFADDD1-EABB-45BF-86D5-DF02963D7E59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csproj", "{984F1317-1828-45B3-AB27-E0642B9917E0}"
 EndProject
 Global
@@ -11,10 +9,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5CFADDD1-EABB-45BF-86D5-DF02963D7E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CFADDD1-EABB-45BF-86D5-DF02963D7E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CFADDD1-EABB-45BF-86D5-DF02963D7E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CFADDD1-EABB-45BF-86D5-DF02963D7E59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{984F1317-1828-45B3-AB27-E0642B9917E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{984F1317-1828-45B3-AB27-E0642B9917E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{984F1317-1828-45B3-AB27-E0642B9917E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
