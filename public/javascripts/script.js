@@ -21,7 +21,9 @@ function handleOrientation(event) {
   // x and y to [0,180]
   x += 90;
   y += 90;
-  var data = {type: "touch", x: x, y: y};
+  var xInt = parseInt(x);
+  var yInt = parseInt(y);
+  var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
     sendAjax(data);
   // 10 is half the size of the ball
