@@ -6,37 +6,36 @@
     <title>Joystick</title>
     <script src='javascripts/VirtualJoystick.js'></script>
 
-    <script>
-        var joystick = new VirtualJoystick({
-            container: document.getElementById('container'),
-            mouseSupport: true,
-        });
-        joystick.addEventListener('touchStart', function () {
-            console.log('down')
-        });
-        joystick.addEventListener('touchEnd', function () {
-            console.log('up')
-        });
-
-        setInterval(function () {
-            var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
-            sendAjax(data);
-
-            var outputEl = document.getElementById('result');
-            outputEl.innerHTML =
-                    ' beta: ' + joystick.deltaY() + '<br/>'
-                    + 'gamma: ' + joystick.deltaX() + '\n'
-        }, 1 / 5 * 100);
-
-    </script>
-
-
 </head>
 <body>
 <div id="joy1">
     <div class="row text-center">
         <div id="container"></div>
         <div id="info">
+
+            <script>
+                var joystick = new VirtualJoystick({
+                    container: document.getElementById('container'),
+                    mouseSupport: true,
+                });
+                joystick.addEventListener('touchStart', function () {
+                    console.log('down')
+                });
+                joystick.addEventListener('touchEnd', function () {
+                    console.log('up')
+                });
+
+                setInterval(function () {
+                    var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
+                    sendAjax(data);
+
+                    var outputEl = document.getElementById('result');
+                    outputEl.innerHTML =
+                            ' beta: ' + joystick.deltaY() + '<br/>'
+                            + 'gamma: ' + joystick.deltaX() + '\n'
+                }, 1 / 5 * 100);
+
+            </script>
 
         </div>
         <div id="result"></div>
