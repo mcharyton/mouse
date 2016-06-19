@@ -6,8 +6,8 @@ var maxX = garden.clientWidth  - ball.clientWidth;
 var maxY = garden.clientHeight - ball.clientHeight;
 
 function handleOrientation(event) {
-  var x = event.beta;  // In degree in the range [-180,180]
-  var y = event.gamma; // In degree in the range [-90,90]
+  var x = event.gamma;  // In degree in the range [-180,180]
+  var y = event.beta; // In degree in the range [-90,90]
 
 
   // Because we don't want to have the device upside down
@@ -17,10 +17,10 @@ function handleOrientation(event) {
 
   // To make computation easier we shift the range of 
   // x and y to [0,180]
-  //x += 90;
-  //y += 90;
-  var xInt = Math.floor(x);
-  var yInt = Math.floor(y);
+  x += 90;
+  y += 90;
+  var xInt = Math.floor(x)-90;
+  var yInt = Math.floor(y)-90;
 
   output.innerHTML  = "beta : " + xInt + "\n";
   output.innerHTML += "gamma: " + yInt + "\n";
