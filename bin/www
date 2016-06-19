@@ -103,6 +103,7 @@ wss.on('connection', function (ws) {
         console.log(dane);
         ws.send(JSON.stringify(dane), function () { /* ignore errors */
         });
+        process.removeListener('dataAdd');
     });
     ws.once('close', function () {
         console.log('stopping client interval');
