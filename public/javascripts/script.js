@@ -19,8 +19,8 @@ function handleOrientation(event) {
   // x and y to [0,180]
   x += 90;
   y += 90;
-  var xInt = ((Math.floor(x)-90)/10);
-  var yInt = ((Math.floor(x)-90)/10);
+  var xInt = Math.floor(x)-90;
+  var yInt = Math.floor(x)-90;
 
   output.innerHTML  = "beta : " + xInt + "\n";
   output.innerHTML += "gamma: " + yInt + "\n";
