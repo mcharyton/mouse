@@ -28,13 +28,15 @@
                 });
 
                 setInterval(function () {
-                    var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
-                    sendAjax(data);
+                    if(joystick.deltaX()!==0 || joystick.deltaY()!==0) {
+                        var data = {type: "touch", x: joystick.deltaX(), y: joystick.deltaY()};
+                        sendAjax(data);
 
-                    var outputEl = document.getElementById('result');
-                    outputEl.innerHTML =
-                            ' beta: ' + joystick.deltaY() + '<br/>'
-                            + 'gamma: ' + joystick.deltaX() + '\n'
+                        var outputEl = document.getElementById('result');
+                        outputEl.innerHTML =
+                                ' beta: ' + joystick.deltaY() + '<br/>'
+                                + 'gamma: ' + joystick.deltaX() + '\n'
+                    }
                 }, 1 / 5 * 100);
 
             </script>
