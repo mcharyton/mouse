@@ -9,8 +9,6 @@ function handleOrientation(event) {
   var x = event.beta;  // In degree in the range [-180,180]
   var y = event.gamma; // In degree in the range [-90,90]
 
-  output.innerHTML  = "beta : " + x + "\n";
-  output.innerHTML += "gamma: " + y + "\n";
 
   // Because we don't want to have the device upside down
   // We constrain the x value to the range [-90,90]
@@ -23,6 +21,9 @@ function handleOrientation(event) {
   //y += 90;
   var xInt = Math.floor(x);
   var yInt = Math.floor(y);
+
+  output.innerHTML  = "beta : " + xInt + "\n";
+  output.innerHTML += "gamma: " + yInt + "\n";
   var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
     sendAjax(data);
