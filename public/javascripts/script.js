@@ -5,8 +5,8 @@ var output = document.querySelector('.output');
 var maxX = garden.clientWidth  - ball.clientWidth;
 var maxY = garden.clientHeight - ball.clientHeight;
 
-//var lastY;
-//var lastX;
+var lastY;
+var lastX;
 var lastMove = 0;
 
 function handleOrientation(event) {
@@ -33,14 +33,14 @@ function handleOrientation(event) {
   output.innerHTML += "gamma: " + yInt + "\n";
   var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
-  //if(xInt!=lastX || yInt!==lastY)
+  if(xInt!=lastX || yInt!==lastY)
     sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
   ball.style.top  = (maxX*x/180 - 10) + "px";
   ball.style.left = (maxY*y/180 - 10) + "px";
-  //lastY = yInt;
-  //lastX = xInt;
+  lastY = yInt;
+  lastX = xInt;
     lastMove = Date.now();
   } else return
 
