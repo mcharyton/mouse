@@ -20,7 +20,7 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-   // event.emit('koko');
+    console.log(res.body);
     var body = req.body;
     if(body.x!=='0' && body.y!=='0')
         emituj(body);
