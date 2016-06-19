@@ -26,7 +26,7 @@ function handleOrientation(event) {
   output.innerHTML += "gamma: " + yInt + "\n";
   var data = {type: "touch", x: xInt, y: yInt};
   //if(joystick.deltaX()!==0 && joystick.deltaY()!==0)
-  if(xInt!=='-1' && yInt !=='-1')
+  if(xInt!==-1 && yInt !==-1)
     sendAjax(data);
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
