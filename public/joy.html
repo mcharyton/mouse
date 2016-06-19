@@ -37,10 +37,11 @@
                         var outputEl = document.getElementById('result');
                         outputEl.innerHTML =
                                 ' Y: ' + joystick.deltaY() + '<br/>'
-                                + 'X: ' + joystick.deltaX() + '\n';
+                                + 'X: ' + joystick.deltaX() + '\n'
 
-                        joystick.deltaY() = yInt;
-                        joystick.deltaX() = xInt;
+
+                        lastY = joystick.deltaY();
+                        lastX = joystick.deltaX();
                 }, 1 / 5 * 100);
 
             </script>
