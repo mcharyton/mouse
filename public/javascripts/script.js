@@ -32,8 +32,8 @@ function handleOrientation(event) {
         var xInt = Math.floor(x) - 90;
         var yInt = Math.floor(y) - 90;
 
-        output.innerHTML = "beta : " + xInt + "\n";
-        output.innerHTML += "gamma: " + yInt + "\n";
+        output.innerHTML = "X: " + xInt + "\n";
+        output.innerHTML += "Y: " + yInt + "\n";
 
         var data = {type: "touch", x: xInt, y: yInt};
 
