@@ -19,7 +19,7 @@ var uid;
 app.get('/', function (req, res, next) {
     res.sendFile(__dirname + '/public/index.html');
 });
-app.use('/api/:id', api);
+app.use('/api', api);
 app.get('/tilt', function (req, res) {
     res.sendFile(__dirname + '/public/orientation.html');
 });
