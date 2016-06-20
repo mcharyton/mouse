@@ -124,8 +124,5 @@ wss.on('connection', function (ws) {
 function sendToConnectionId(connectionID, data) {
     var connection = connections[connectionID];
     console.log("polaczenie");
-
-    if (connection && connection.connected) {
         connection.send(data);
-    }
 }
