@@ -13,16 +13,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', function (req, res, next) {
+app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
 var lastBody;
 app.post('/api/:id', function(req,res){
     var id = req.params.id;
+    console.log(id);
     var body = req.body;
     if (body !== lastBody)
         emituj(body, id);
