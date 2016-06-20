@@ -1,31 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using System.Timers;
-using System.Runtime.Serialization;
-
-using System.Windows.Forms;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
-using System.Diagnostics;
+using System.Runtime.Serialization;
 
 namespace client
 {
-    public partial class ClientProgram
+    public partial class Form1 : Form
     {
-        //static MouseGestureRecognition mgr;
+
         MouseGestureRecognition2 mgr;
         System.Timers.Timer doubleClickTimer;
+        System.Timers.Timer mgrTimer;
+        System.Timers.Timer loopTimer;
+        System.Diagnostics.Stopwatch stopwatchTimer;
+
+        long currTicks = 0;
+        long deltaTicks;
+        long prevTicks;
+
+        double deltaPosX;
+        double deltaPosY;
+
+        double deltaTime;
+
+        int lastPosX = 0;
+        int lastPosY = 0;
 
         double speedX, speedY;
         double posX, posY;
+        
+        public Form1()
+        {
+            InitializeComponent();
+        }
 
         double fun(int x)
         {
@@ -38,12 +55,13 @@ namespace client
             return y;
         }
 
-        
+
 
         // callback dla zdarzenia odebrania danych od serwera
         void OnMessage(object sender, MessageEventArgs e)
         {
             System.Console.Out.WriteLine(e.Data);
+            labelStatus.Text = e.Data;
             // deserializujemy JSONa od serwera
             try
             {
@@ -70,7 +88,7 @@ namespace client
 
                     case "id":
                         /// TODO
-                        /// // zaimplementować parowanie komputer-telefon
+                        this.labelId.Text = data.x.ToString();
                         break;
 
                     default:
@@ -87,24 +105,22 @@ namespace client
         void OnClose(object sender, CloseEventArgs e)
         {
             System.Console.Out.WriteLine("Connection closed.");
+            labelStatus.Text = "Zerwano połączenie.";
+            labelId.Text = "";
             ((WebSocket)sender).ConnectAsync();
-
-            /*bool notConnected = true;
-
-            while (notConnected)
-            {
-                
-            }*/
         }
 
         void OnError(object sender, ErrorEventArgs e)
         {
             System.Console.Out.WriteLine("Connection error.");
+            labelStatus.Text = "Błąd połączenia.";
         }
 
         void OnOpen(object sender, EventArgs e)
         {
             System.Console.Out.WriteLine("Connection established.");
+            labelStatus.Text = "Poprawnie połączono.";
+            this.Update();
         }
 
 
@@ -157,10 +173,14 @@ namespace client
             ws.ConnectAsync();
         }
 
-        void Main(string[] args)
+        private void Form1_Load_1(object sendero, EventArgs eo)
         {
             mgr = new MouseGestureRecognition2();
             doubleClickTimer = new System.Timers.Timer();
+            loopTimer = new System.Timers.Timer();
+            stopwatchTimer = new System.Diagnostics.Stopwatch();
+
+            System.Console.Out.WriteLine("Started program.");
 
             using (var ws = new WebSocket("ws://167.114.242.19/"))
             {
@@ -173,8 +193,8 @@ namespace client
                 // pobranie pozycji myszy
                 WinCursorClient.POINT cursorPos = new WinCursorClient.POINT();
                 WinCursorClient.GetCursorPos(ref cursorPos);
-                posX = (double) cursorPos.x;
-                posY = (double) cursorPos.y;
+                posX = (double)cursorPos.x;
+                posY = (double)cursorPos.y;
 
                 // połączenie z serwerem
                 ws.ConnectAsync();
@@ -190,57 +210,56 @@ namespace client
                 };
 
                 // timer obsługujący usługę rozpoznawania gestów
-                System.Timers.Timer mgrTimer = new System.Timers.Timer();
+                mgrTimer = new System.Timers.Timer();
                 int delay = 2;
                 mgrTimer.Interval = delay;
                 mgrTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
                 {
                     mgr.TimerTick(delay);
                 };
-                mgrTimer.Enabled = true;
+                // mgrTimer.Enabled = true;
 
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
-                long prevTicks = timer.ElapsedTicks;
-                long currTicks = 0;
-                long deltaTicks;
-
-                double deltaPosX;
-                double deltaPosY;
-
-                double deltaTime;
-
-                int lastPosX = 0;
-                int lastPosY = 0;
-
-                while (true)
-                {
-                    currTicks = timer.ElapsedTicks;
-                    deltaTicks = currTicks - prevTicks;
-
-                    deltaTime = (double)deltaTicks / (double)TimeSpan.TicksPerSecond / 5000000.0f;
-
-                    deltaPosX = deltaTime * speedX;
-                    deltaPosY = deltaTime * speedY;
-
-                    posX += deltaPosX;
-                    posY += deltaPosY;
-
-                    if (posX < 0) posX = 0;
-                    else if (posX > 2000) posX = 2000;
-
-                    if (posY < 0) posY = 0;
-                    else if (posY > 2000) posY = 2000;
-
-                    if ((int)posX != lastPosX || (int)posY != lastPosY)
-                    {
-                        MoveCursorAbsolute((int)posX, (int)posY);
-                        lastPosX = (int)posX;
-                        lastPosY = (int)posY;
-                    }
-                    
-                }
+                loopTimer.Interval = 30;
+                loopTimer.Elapsed += LoopTimerTick;
+                loopTimer.Start();
+                stopwatchTimer.Start();
+                prevTicks = stopwatchTimer.ElapsedTicks;
             }
+        }
+
+        private void LoopTimerTick(object sendert, EventArgs et)
+        {
+            currTicks = stopwatchTimer.ElapsedTicks;
+            deltaTicks = currTicks - prevTicks;
+
+            deltaTime = (double)deltaTicks / (double)TimeSpan.TicksPerSecond / 5000000.0f;
+
+            deltaPosX = deltaTime * speedX;
+            deltaPosY = deltaTime * speedY;
+
+            posX += deltaPosX;
+            posY += deltaPosY;
+
+            if (posX < 0) posX = 0;
+            else if (posX > 2000) posX = 2000;
+
+            if (posY < 0) posY = 0;
+            else if (posY > 2000) posY = 2000;
+
+            if ((int)posX != lastPosX || (int)posY != lastPosY)
+            {
+                MoveCursorAbsolute((int)posX, (int)posY);
+                lastPosX = (int)posX;
+                lastPosY = (int)posY;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                mgrTimer.Start();
+            else
+                mgrTimer.Stop();
         }
     }
 }
