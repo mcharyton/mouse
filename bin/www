@@ -91,14 +91,38 @@ function onListening() {
 
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
+var connections = {};
+var connectionIDCounter = 0;
+
 
 wss.on('connection', function (ws) {
+    var connection = ws;
+    // Store a reference to the connection using an incrementing ID
+    connection.id = connectionIDCounter ++;
+    connections[connection.id] = connection;
+    sendToConnectionId(connection.id,JSON.stringify(connection.id));
+
+    // Now you can access the connection with connections[id] and find out
+    // the id for a connection with connection.id
+    console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
+    ws.on('close', function(reasonCode, description) {
+        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
+            "Connection ID: " + connection.id);
+        // Make sure to remove closed connections from the global pool
+        delete connections[connection.id];
+    });
+
     process.on('dataAdd', function (dane) {
         console.log(dane);
-        ws.send(JSON.stringify(dane), function () { /* ignore errors */
-        });
+        sendToConnectionId(connection.id,JSON.stringify(dane));
     });
-    ws.on('close', function () {
-        console.log('stopping client interval');
-    });
+
 });
+
+// Send a message to a connection by its connectionID
+function sendToConnectionId(connectionID, data) {
+    var connection = connections[connectionID];
+    if (connection && connection.connected) {
+        connection.send(data);
+    }
+}
