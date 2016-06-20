@@ -94,9 +94,9 @@ var wss = new WebSocketServer({server: server});
 
 wss.on('connection', function (ws) {
     process.on('dataAdd', function (dane) {
-            console.log(dane);
-            ws.send(JSON.stringify(dane), function () { /* ignore errors */
-            });
+        console.log(dane);
+        ws.send(JSON.stringify(dane), function () { /* ignore errors */
+        });
     });
     ws.on('close', function () {
         console.log('stopping client interval');

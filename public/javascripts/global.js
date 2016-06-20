@@ -15,14 +15,16 @@ function RButton() {
 }
 var lastData;
 function sendAjax(data) {
-    if(data!=lastData)
+    if (data != lastData)
         $.ajax({
             type: "POST",
             url: "http://167.114.242.19/api",
             data: data,
             dataType: "json",
-            success: function() {},
-            error: function() {}
+            success: function () {
+            },
+            error: function () {
+            }
         });
-    lastData=data;
+    lastData = data;
 }

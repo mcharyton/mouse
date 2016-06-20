@@ -5,7 +5,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <title>Joystick</title>
     <script src='javascripts/VirtualJoystick.js'>
-    </script><script src="javascripts/global.js"></script>
+    </script>
+    <script src="javascripts/global.js"></script>
     <script src="javascripts/jquery-2.0.3.min.js"></script>
 
 
@@ -19,7 +20,7 @@
             <script>
                 var joystick = new VirtualJoystick({
                     container: document.getElementById('container'),
-                    mouseSupport: true,
+                    mouseSupport: true
                 });
                 joystick.addEventListener('touchStart', function () {
                     console.log('down')
@@ -31,17 +32,17 @@
                 var lastX;
 
                 setInterval(function () {
-                        var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
-                        if(joystick.deltaX()!=lastX || joystick.deltaY()!==lastY)
-                            sendAjax(data);
-                        var outputEl = document.getElementById('result');
-                        outputEl.innerHTML =
-                                ' Y: ' + joystick.deltaY() + '<br/>'
-                                + 'X: ' + joystick.deltaX() + '\n'
+                    var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
+                    if (joystick.deltaX() != lastX || joystick.deltaY() !== lastY)
+                        sendAjax(data);
+                    var outputEl = document.getElementById('result');
+                    outputEl.innerHTML =
+                            ' Y: ' + joystick.deltaY() + '<br/>'
+                            + 'X: ' + joystick.deltaX() + '\n';
 
 
-                        lastY = joystick.deltaY();
-                        lastX = joystick.deltaX();
+                    lastY = joystick.deltaY();
+                    lastX = joystick.deltaX();
                 }, 1 / 5 * 100);
 
             </script>
