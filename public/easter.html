@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sensors</title>
+    <script type="text/javascript">
+
+
+        var lastClick = [250, 250];
+        var color='#fff';
+        var maxG = 0.00;
+        function motion(event){
+            var X=event.acceleration.x;
+            X=(X*25);
+            var Y=event.acceleration.y;
+            Y=(Y*(-25));
+            var Z=event.acceleration.z;
+            Z=Math.round(Z*100)/100;
+            if(Z>maxG)
+                    maxG=Z;
+            if(maxG>10.00)
+                    alert("Siema!");
+            if (lastClick[0]-X>1||lastClick[1]-Y>1){
+                document.getElementById("accelerometer").innerHTML = "Accelerometer: "
+                        + X + ", "
+                        + Y + ", "
+                        + Z + ", maxG: " + maxG;
+                drawLine(X+250,Y+250);
+            }
+
+        }
+        function orientation(event){
+            document.getElementById("magnetometer").innerHTML = "Magnetometer: "
+                    + event.alpha + ", "
+                    + event.beta + ", "
+                    + event.gamma;
+        }
+        function go(){
+            //     FakeLoad();
+            if(window.DeviceMotionEvent){
+                window.addEventListener("devicemotion", motion, false);
+            }else{
+                var status = document.getElementById("status");
+                status.innerHTML = status.innerHTML.replace(
+                        "is supported", "is not supported"
+                );
+            }
+            if(window.DeviceOrientationEvent){
+                window.addEventListener("deviceorientation", orientation, false);
+            }else{
+                var status = document.getElementById("status");
+                status.innerHTML = status.innerHTML.replace(
+                        "is supported", "is not supported"
+                );
+            }
+        }
+
+        function start(){
+            if (color=='#fff')
+                color='#000'
+            else
+                color='#fff'
+        }
+
+        function drawLine(x,y) {
+            context = document.getElementById('canvas').getContext('2d');
+
+            context.beginPath();
+            context.moveTo(lastClick[0], lastClick[1]);
+            context.lineTo(x, y, 6);
+
+
+            context.strokeStyle = color;
+            context.stroke();
+
+
+            lastClick = [x, y];
+        };
+
+        function FakeLoad()
+        {
+            var d = new Date();
+            var start = d.getTime();
+
+            while (new Date().getTime() - start < 100)
+            {
+                //emulate 5 secs of loading time
+            }
+        }
+
+
+
+
+    </script>
+    <style>
+        canvas {
+            border: 1px dashed rgb(200, 200, 200);
+        }
+    </style>
+</head>
+<body onload="go();">
+<div id="status"><a href=\"http://www.w3.org/TR/orientation-event/">http://www.w3.org/TR/orientation-event/</a> is supported.</div>
+<br/><br/>
+<div id="accelerometer"></div>
+<br/><br/>
+<div id="magnetometer"></div>
+
+<canvas id="canvas" width="500" height="500"></canvas><br>
+<button id="btn_start" onClick="start()" value="start">Start</button>
+</body>
+</html>

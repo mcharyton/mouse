@@ -13,14 +13,19 @@ function RButton() {
     var data = {type: "btn", btn: "right"};
     sendAjax(data);
 }
-
+var lastData;
 function sendAjax(data) {
-    $.ajax({
-        type: "POST",
-        url: "http://167.114.242.19/api",
-        data: data,
-        dataType: "json",
-        success: function() {},
-        error: function() {}
-    });
+    var id = $("#id-field").val();
+    if (data !== lastData)
+        $.ajax({
+            type: "POST",
+            url: "http://167.114.242.19/api/"+id,
+            data: data,
+            dataType: "json",
+            success: function () {
+            },
+            error: function () {
+            }
+        });
+    lastData = data;
 }

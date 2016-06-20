@@ -1,76 +1,75 @@
 <html>
 <head>
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="stylesheets/style.css" rel="stylesheet" media="screen">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/stylesheets/style.css" rel="stylesheet" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <title>Joystick</title>
-    <script src='javascripts/VirtualJoystick.js'>
-    </script><script src="javascripts/global.js"></script>
-    <script src="javascripts/jquery-2.0.3.min.js"></script>
-
 
 </head>
 <body>
-<div id="joy1">
+<div class="kontener">
     <div class="row text-center">
-        <div id="container"></div>
-        <div id="info">
-
-            <script>
-                var joystick = new VirtualJoystick({
-                    container: document.getElementById('container'),
-                    mouseSupport: true,
-                });
-                joystick.addEventListener('touchStart', function () {
-                    console.log('down')
-                });
-                joystick.addEventListener('touchEnd', function () {
-                    console.log('up')
-                });
-                var lastY;
-                var lastX;
-
-                setInterval(function () {
-                        var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
-                        if(joystick.deltaX()!=lastX || joystick.deltaY()!==lastY)
-                            sendAjax(data);
-                        var outputEl = document.getElementById('result');
-                        outputEl.innerHTML =
-                                ' Y: ' + joystick.deltaY() + '<br/>'
-                                + 'X: ' + joystick.deltaX() + '\n'
-
-
-                        lastY = joystick.deltaY();
-                        lastX = joystick.deltaX();
-                }, 1 / 5 * 100);
-
-            </script>
-
-        </div>
-        <div id="result"></div>
+        <input type="text" id="id-field">
     </div>
-</div>
-
-<div id="joy2">
-    <div class="container">
+    <div id="joy1">
         <div class="row text-center">
+            <div id="mouseContainer"></div>
+            <div id="info"></div>
+            <div id="result"></div>
         </div>
-        <div class="col-sm-4">
-            <input type="button" id="buttonL" value="L" onclick="LButton()">
+    </div>
 
-        </div>
-        <div class="col-sm-4">
-            <input type="button" id="buttonLL" value="Double L" onclick="DoubleLButton()">
-
-        </div>
-        <div class="col-sm-4">
-            <input type="button" id="buttonR" value="R" onclick="RButton()">
-
+    <div id="joy2">
+        <div class="container">
+            <div class="row text-center">
+            </div>
+            <div class="col-sm-4">
+                <input type="button" id="buttonL" value="L" onclick="LButton()">
+            </div>
+            <div class="col-sm-4">
+                <input type="button" id="buttonLL" value="Double L" onclick="DoubleLButton()">
+            </div>
+            <div class="col-sm-4">
+                <input type="button" id="buttonR" value="R" onclick="RButton()">
+            </div>
         </div>
     </div>
 </div>
 
-<script src="javascripts/bootstrap.min.js"></script>
-<script src="javascripts/script.js"></script>
+<!--<script src="javascripts/script.js"></script>-->
+
+<script src="/javascripts/jquery-2.0.3.min.js"></script>
+<script src='/javascripts/VirtualJoystick.js'></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/global.js"></script>
+<script>
+    var joystick = new VirtualJoystick({
+        container: document.getElementById('mouseContainer'),
+        mouseSupport: true
+    });
+    joystick.addEventListener('touchStart', function () {
+        console.log('down')
+    });
+    joystick.addEventListener('touchEnd', function () {
+        console.log('up')
+    });
+    var lastY;
+    var lastX;
+
+    setInterval(function () {
+        var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
+        if (joystick.deltaX() != lastX || joystick.deltaY() !== lastY)
+            sendAjax(data);
+
+        var outputEl = document.getElementById('result');
+        outputEl.innerHTML =
+                'X: ' + joystick.deltaX() + '<br/>'
+                + ' Y: ' + joystick.deltaY() + '<br/>';
+
+        lastY = joystick.deltaY();
+        lastX = joystick.deltaX();
+    }, 1 / 5 * 100);
+
+</script>
 </body>
 </html>
