@@ -112,9 +112,9 @@ wss.on('connection', function (ws) {
         delete connections[connection.id];
     });
 
-    process.on('dataAdd', function (dane) {
-        console.log(dane);
-        sendToConnectionId(connection.id,JSON.stringify(dane));
+    process.on('dataAdd', function (dane, id) {
+        console.log(dane + id);
+        sendToConnectionId(connections[id],JSON.stringify(dane));
     });
 
 });

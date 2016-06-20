@@ -20,18 +20,19 @@ router.get('/', function (req, res) {
 
 var lastBody;
 
-router.post('/', function (req, res) {
+router.post('/:id', function (req, res) {
+    var id = req.params.id;
     var body = req.body;
     if (body !== lastBody)
-        emituj(body);
+        emituj(body, id);
     lastBody = body;
 
     res.send('POST handler for api');
     res.end('Odpowiedzialem');
 });
 
-function emituj(data) {
-    process.emit('dataAdd', data);
+function emituj(data, id) {
+    process.emit('dataAdd', data, id);
 }
 
 module.exports = router;

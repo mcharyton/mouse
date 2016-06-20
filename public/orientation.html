@@ -1,14 +1,9 @@
 <html>
 <head>
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="stylesheets/style.css" rel="stylesheet" media="screen">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/stylesheets/style.css" rel="stylesheet" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <title>Strona</title>
-    <script>
-        $(document).on('click','body *',function(){
-           LButton();
-        });
-    </script>
 
 </head>
 <body onload="init()">
@@ -17,7 +12,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="garden">
-                <div class="ball"><img src="images/cursor.png"/></div>
+                <div class="ball"><img src="/images/cursor.png"/></div>
             </div>
 
             <h1>
@@ -36,11 +31,20 @@
                 <input type="button" id="buttonR" value="R" onclick="RButton()">
             </div>
         </div>
+        <div class="row text-center">
+            <input type="text" id="id-field">
+        </div>
     </div>
 </div>
-<script src="javascripts/jquery-2.0.3.min.js"></script>
-<script src="javascripts/bootstrap.min.js"></script>
-<script src="javascripts/script.js"></script>
-<script src="javascripts/global.js"></script>
+<script src="/javascripts/jquery-2.0.3.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/script.js"></script>
+<script src="/javascripts/global.js"></script>
+<script>
+    $(document).on('click','body *',function(){
+        LButton();
+        console.log('kliknieto!');
+    });
+</script>
 </body>
 </html>
