@@ -133,7 +133,7 @@ input[type=button]:hover {
     text-align: center;
 }
 
-#container {
+#mouseContainer {
     background-color: #CDB380;
     width: 98%;
     height: 60%;
@@ -143,3 +143,9 @@ input[type=button]:hover {
     -webkit-user-select: none;
     -moz-user-select: none;
 }		
+
+.kontener{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
