@@ -100,7 +100,7 @@ wss.on('connection', function (ws) {
     // Store a reference to the connection using an incrementing ID
     connection.id = connectionIDCounter ++;
     connections[connection.id] = connection;
-    sendToConnectionId(connection.id,JSON.stringify(connection.id));
+    ws.send(JSON.stringify({type: "id", x: connection.id}));
 
     // Now you can access the connection with connections[id] and find out
     // the id for a connection with connection.id
