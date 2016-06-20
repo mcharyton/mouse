@@ -21,17 +21,7 @@ app.get('/', function (req, res) {
 });
 
 var lastBody;
-app.post('/api/:id', function(req,res){
-    var id = req.params.id;
-    console.log(id);
-    var body = req.body;
-    if (body !== lastBody)
-        emituj(body, id);
-    lastBody = body;
-
-    res.send('POST handler for api');
-    res.end('Odpowiedzialem');
-});
+app.use('/api', api);
 
 function emituj(data, id) {
     process.emit('dataAdd', data, id);
