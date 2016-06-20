@@ -123,8 +123,9 @@ wss.on('connection', function (ws) {
 // Send a message to a connection by its connectionID
 function sendToConnectionId(connectionID, data) {
     var connection = connections[connectionID];
+    console.log("polaczenie");
+
     if (connection && connection.connected) {
-        console.log(connection);
         connection.send(data);
     }
 }
