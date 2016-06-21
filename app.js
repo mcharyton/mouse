@@ -19,14 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-
-var lastBody;
 app.use('/api', api);
-
-function emituj(data, id) {
-    process.emit('dataAdd', data, id);
-}
-
 app.get('/tilt', function (req, res) {
     res.sendFile(__dirname + '/public/orientation.html');
 });

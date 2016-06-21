@@ -19,7 +19,7 @@ function sendAjax(data) {
     if (data !== lastData)
         $.ajax({
             type: "POST",
-            url: "http://167.114.242.19/api/"+id,
+            url: "http://167.114.242.19/api/" + id,
             data: data,
             dataType: "json",
             success: function () {
