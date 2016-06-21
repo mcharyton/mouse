@@ -114,15 +114,17 @@ wss.on('connection', function (ws) {
 
     process.on('dataAdd', function (dane, id) {
         console.log(dane + id);
-        sendToConnectionId(connections[id],JSON.stringify(dane));
+        sendToConnectionId(connections[id],JSON.stringify(dane),ws);
     });
 
 });
 
 // Send a message to a connection by its connectionID
-function sendToConnectionId(connectionID, data) {
+function sendToConnectionId(connectionID, data, ws) {
     var connection = connections[connectionID];
     if (connection && connection.connected) {
         connection.send(data);
+        ws.send(JSON.stringify('test'));
     }
+    ws.send(JSON.stringify('test2'));
 }

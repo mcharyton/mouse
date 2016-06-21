@@ -7,32 +7,33 @@
 
 </head>
 <body onload="init()">
+<div class="kontener">
+    <div id="offer">
+        <div class="container">
+            <div class="row text-center">
+                <div class="garden">
+                    <div class="ball"><img src="/images/cursor.png"/></div>
+                </div>
 
-<div id="offer">
-    <div class="container">
-        <div class="row text-center">
-            <div class="garden">
-                <div class="ball"><img src="/images/cursor.png"/></div>
-            </div>
+                <h1>
+                    <pre class="output"></pre>
+                </h1>
+                <br/> <br/>
+                <div class="col-sm-4">
+                    <input type="button" id="buttonL" value="L" onclick="LButton()">
 
-            <h1>
-                <pre class="output"></pre>
-            </h1>
-            <br/> <br/>
-            <div class="col-sm-4">
-                <input type="button" id="buttonL" value="L" onclick="LButton()">
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" id="buttonLL" value="Double L" onclick="DoubleLButton()">
 
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" id="buttonR" value="R" onclick="RButton()">
+                </div>
             </div>
-            <div class="col-sm-4">
-                <input type="button" id="buttonLL" value="Double L" onclick="DoubleLButton()">
-
+            <div class="row text-center">
+                <input type="text" id="id-field">
             </div>
-            <div class="col-sm-4">
-                <input type="button" id="buttonR" value="R" onclick="RButton()">
-            </div>
-        </div>
-        <div class="row text-center">
-            <input type="text" id="id-field">
         </div>
     </div>
 </div>
@@ -41,7 +42,7 @@
 <script src="/javascripts/script.js"></script>
 <script src="/javascripts/global.js"></script>
 <script>
-    $(document).on('click','body *',function(){
+    $(document).on('click', 'body *', function () {
         LButton();
         console.log('kliknieto!');
     });
