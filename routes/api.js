@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
 
 var lastBody;
 
-router.post('/', function (req, res) {
+router.post('/:id', function (req, res) {
     var id = req.params.id;
     var body = req.body;
     if (body !== lastBody)

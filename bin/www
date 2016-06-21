@@ -92,9 +92,6 @@ function onListening() {
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
 var connections = {};
-var connectionIDCounter = 0;
-
-
 wss.on('connection', function (ws) {
     var connection = ws;
     // Store a reference to the connection using an incrementing ID
@@ -113,11 +110,15 @@ wss.on('connection', function (ws) {
     });
 
     process.on('dataAdd', function (dane, id) {
-        console.log(dane + id);
+        console.log(dane);
+        console.log(id);
         sendToConnectionId(connections[id],JSON.stringify(dane),ws);
     });
 
 });
+
+
+var connectionIDCounter = 0;
 
 // Send a message to a connection by its connectionID
 function sendToConnectionId(connectionID, data, ws) {
