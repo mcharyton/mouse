@@ -22,19 +22,13 @@ var lastBody;
 
 router.post('/:id', function (req, res) {
     var id = req.params.id;
-    process.on('userId', function(id){
-        var body = req.body;
-        if (body !== lastBody)
-            emituj(body, id);
-        lastBody = body;
+    var body = req.body;
+    if (body !== lastBody)
+        emituj(body, id);
+    lastBody = body;
 
-        res.status(200).send('POST handler for api');
-        res.end('Odpowiedzialem');
-    });
-    process.on('noUserId',function(id){
-       res.status(401).send('No such user: '+ id);
-    });
-    process.emit('checkId', id);
+    res.status(200).send('POST handler for api');
+    res.end('Odpowiedzialem');
 });
 
 function emituj(data, id) {

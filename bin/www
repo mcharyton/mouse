@@ -97,14 +97,6 @@ var transmissionFile = 'logs/transmission';
 var connections = {};
 var connectionIDCounter = 0;
 
-process.on('checkId', function (id) {
-    if (typeof connections[id] == 'undefined') {
-        process.emit('noUserId', id);
-    } else {
-        process.emit('userId', id);
-    }
-});
-
 wss.on('connection', function (ws) {
     var connection = ws;
     // Store a reference to the connection using an incrementing ID
@@ -112,8 +104,6 @@ wss.on('connection', function (ws) {
     connections[connection.id] = connection;
 
     ws.send(JSON.stringify({type: "id", x: connection.id}));
-
-
 
     // Now you can access the connection with connections[id] and find out
     // the id for a connection with connection.id
