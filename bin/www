@@ -110,9 +110,11 @@ wss.on('connection', function (ws) {
     });
 
     process.on('dataAdd', function (dane, id) {
+        var client = connections[id];
         console.log(dane);
         console.log(id);
-        sendToConnectionId(connections[id],JSON.stringify(dane),ws);
+        client.send(JSON.stringify(dane));
+        //sendToConnectionId(connections[id],JSON.stringify(dane),ws);
     });
 
 });
