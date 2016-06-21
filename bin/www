@@ -93,7 +93,6 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
 var fs = require('fs');
 var transmissionFile = '/logs/transmission';
-var connectionsFile = '/logs/connections';
 
 var connections = {};
 var connectionIDCounter = 0;
@@ -103,17 +102,8 @@ wss.on('connection', function (ws) {
     // Store a reference to the connection using an incrementing ID
     connection.id = connectionIDCounter++;
     connections[connection.id] = connection;
-    var connectionLog={id: connection.id, details: connections[connection.id]};
 
     console.log(JSON.stringify(JSON.toString(connections[connection.id])));
-
-    //fs.writeFile(connectionsFile, JSON.stringify(connectionLog, null, 4), function (err) {
-    //    if (err) {
-    //        console.log(err);
-    //    } else {
-    //        console.log('Connection saved to file');
-    //    }
-    //});
 
     ws.send(JSON.stringify({type: "id", x: connection.id}));
 
