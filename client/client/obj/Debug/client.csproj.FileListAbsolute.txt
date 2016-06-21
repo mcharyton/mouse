@@ -6,12 +6,21 @@ C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\client\bin\D
 C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\client\obj\Debug\client.csprojResolveAssemblyReference.cache
 C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\client\obj\Debug\client.exe
 C:\Users\puq\documents\visual studio 2012\Projects\mouse-controller\client\obj\Debug\client.pdb
-C:\Users\puq\Desktop\mouse\client\client\obj\Debug\client.pdb
+C:\Users\puq\Desktop\client\client\bin\Debug\client.exe.config
+C:\Users\puq\Desktop\client\client\obj\Debug\client.exe
+C:\Users\puq\Desktop\client\client\obj\Debug\client.pdb
+C:\Users\puq\Desktop\client\client\bin\Debug\client.exe
+C:\Users\puq\Desktop\client\client\bin\Debug\client.pdb
+C:\Users\puq\Desktop\client\client\bin\Debug\websocket-sharp.dll
+C:\Users\puq\Desktop\client\client\bin\Debug\websocket-sharp.pdb
+C:\Users\puq\Desktop\client\client\obj\Debug\client.Form1.resources
+C:\Users\puq\Desktop\client\client\obj\Debug\client.csproj.GenerateResource.Cache
+C:\Users\puq\Desktop\mouse\client\client\bin\Debug\client.exe.config
+C:\Users\puq\Desktop\mouse\client\client\bin\Debug\client.exe
 C:\Users\puq\Desktop\mouse\client\client\bin\Debug\client.pdb
 C:\Users\puq\Desktop\mouse\client\client\bin\Debug\websocket-sharp.dll
 C:\Users\puq\Desktop\mouse\client\client\bin\Debug\websocket-sharp.pdb
 C:\Users\puq\Desktop\mouse\client\client\obj\Debug\client.Form1.resources
 C:\Users\puq\Desktop\mouse\client\client\obj\Debug\client.csproj.GenerateResource.Cache
-C:\Users\puq\Desktop\mouse\client\client\bin\Debug\client.exe.config
-C:\Users\puq\Desktop\mouse\client\client\bin\Debug\client.exe
 C:\Users\puq\Desktop\mouse\client\client\obj\Debug\client.exe
+C:\Users\puq\Desktop\mouse\client\client\obj\Debug\client.pdb

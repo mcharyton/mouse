@@ -24,6 +24,8 @@ namespace client
         System.Timers.Timer loopTimer;
         System.Diagnostics.Stopwatch stopwatchTimer;
 
+        WebSocket wsHandle;
+
         long currTicks = 0;
         long deltaTicks;
         long prevTicks;
@@ -36,19 +38,24 @@ namespace client
         int lastPosX = 0;
         int lastPosY = 0;
 
+        int nextConnectionAttemptCounter;
+
         double speedX, speedY;
         double posX, posY;
         
         public Form1()
         {
             InitializeComponent();
+
+            nextConnectionAttemptCounter = 0;
         }
 
+        
         double fun(int x)
         {
             double y;
             double dx = (double)x;
-            dx /= 25.0;
+            dx /= 5.0;
             y = 10e-4 * Math.Pow(dx, 4) + 0.1 * Math.Pow(dx, 2);
             if (x < 0)
                 y = -y;
@@ -61,7 +68,7 @@ namespace client
         void OnMessage(object sender, MessageEventArgs e)
         {
             System.Console.Out.WriteLine(e.Data);
-            labelStatus.Text = e.Data;
+            labelData.Text = e.Data;
             // deserializujemy JSONa od serwera
             try
             {
@@ -77,8 +84,8 @@ namespace client
                         break;
                     case "joystick":
                         //Console.Out.WriteLine("touch");
-                        speedX = fun(data.x);
-                        speedY = fun(data.y);
+                        speedX = fun(data.x) * 1000;
+                        speedY = fun(data.y) * 1000;
                         break;
 
                     case "btn":
@@ -102,25 +109,74 @@ namespace client
             }
         }
 
+        // callback dla zamknięcia połączenia WebSocket
         void OnClose(object sender, CloseEventArgs e)
         {
             System.Console.Out.WriteLine("Connection closed.");
             labelStatus.Text = "Zerwano połączenie.";
             labelId.Text = "";
-            ((WebSocket)sender).ConnectAsync();
+            //((WebSocket)sender).ConnectAsync();
+            EstablishConnection();
         }
 
+        // callback dla błędu połączenia WebSocket
         void OnError(object sender, ErrorEventArgs e)
         {
             System.Console.Out.WriteLine("Connection error.");
             labelStatus.Text = "Błąd połączenia.";
         }
 
+        // callback dla otwarcia połączenia WebSocket
         void OnOpen(object sender, EventArgs e)
         {
             System.Console.Out.WriteLine("Connection established.");
             labelStatus.Text = "Poprawnie połączono.";
             this.Update();
+        }
+
+        void EstablishConnectionTick(object sender, EventArgs e)
+        {
+            System.Console.Out.WriteLine("nextAttemptCounter: " + nextConnectionAttemptCounter);
+            if( wsHandle.IsAlive){
+                System.Console.Out.WriteLine("Connection is alive!");
+                return;
+            }
+
+            if (nextConnectionAttemptCounter == 0)
+            {
+                wsHandle.Connect();
+                if (wsHandle.IsAlive)
+                {
+                    ((System.Timers.Timer)sender).Enabled = false;
+                }
+                nextConnectionAttemptCounter = 3;
+            }
+            else
+            {
+                nextConnectionAttemptCounter--;
+                labelStatus.Text = "Następna próba połączenia za " +
+                    nextConnectionAttemptCounter+1 + " sekund";
+                //System.Console.Out.WriteLine("nextConnCounter:"+nextConnectionAttemptCounter);
+                //System.Console.Out.WriteLine("Decrementing nextConnCounter...");
+                //System.Console.Out.WriteLine("nextConnCounter:" + nextConnectionAttemptCounter);
+                
+            }
+        }
+
+        void EstablishConnection()
+        {
+            wsHandle.Connect();
+            /*if (wsHandle.IsAlive)
+                return;
+
+            System.Timers.Timer connectionTimer = new System.Timers.Timer();
+            connectionTimer.Interval = 1000;
+            connectionTimer.Elapsed += EstablishConnectionTick;
+            connectionTimer.Enabled = true;
+
+            while (!wsHandle.IsAlive)
+            {
+            }*/
         }
 
 
@@ -168,65 +224,6 @@ namespace client
             }
         }
 
-        void EstablishConnection(WebSocket ws)
-        {
-            ws.ConnectAsync();
-        }
-
-        private void Form1_Load_1(object sendero, EventArgs eo)
-        {
-            mgr = new MouseGestureRecognition2();
-            doubleClickTimer = new System.Timers.Timer();
-            loopTimer = new System.Timers.Timer();
-            stopwatchTimer = new System.Diagnostics.Stopwatch();
-
-            System.Console.Out.WriteLine("Started program.");
-
-            using (var ws = new WebSocket("ws://167.114.242.19/"))
-            {
-                // dodanie funkcji callback
-                ws.OnMessage += OnMessage;
-                ws.OnClose += OnClose;
-                ws.OnError += OnError;
-                ws.OnOpen += OnOpen;
-
-                // pobranie pozycji myszy
-                WinCursorClient.POINT cursorPos = new WinCursorClient.POINT();
-                WinCursorClient.GetCursorPos(ref cursorPos);
-                posX = (double)cursorPos.x;
-                posY = (double)cursorPos.y;
-
-                // połączenie z serwerem
-                ws.ConnectAsync();
-
-                // timer obsługujący podwójne kliknięcie
-                doubleClickTimer = new System.Timers.Timer();
-                doubleClickTimer.AutoReset = false;
-                doubleClickTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
-                {
-                    WinCursorClient.POINT p = new WinCursorClient.POINT();
-                    WinCursorClient.GetCursorPos(ref p);
-                    WinCursorClient.mouse_event(WinCursorClient.MOUSEEVENTF_LEFTDOWN | WinCursorClient.MOUSEEVENTF_LEFTUP, (uint)p.x, (uint)p.y, 0, (System.UIntPtr)0);
-                };
-
-                // timer obsługujący usługę rozpoznawania gestów
-                mgrTimer = new System.Timers.Timer();
-                int delay = 2;
-                mgrTimer.Interval = delay;
-                mgrTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
-                {
-                    mgr.TimerTick(delay);
-                };
-                // mgrTimer.Enabled = true;
-
-                loopTimer.Interval = 30;
-                loopTimer.Elapsed += LoopTimerTick;
-                loopTimer.Start();
-                stopwatchTimer.Start();
-                prevTicks = stopwatchTimer.ElapsedTicks;
-            }
-        }
-
         private void LoopTimerTick(object sendert, EventArgs et)
         {
             currTicks = stopwatchTimer.ElapsedTicks;
@@ -239,6 +236,8 @@ namespace client
 
             posX += deltaPosX;
             posY += deltaPosY;
+
+            nextConnectionAttemptCounter = 0;
 
             if (posX < 0) posX = 0;
             else if (posX > 2000) posX = 2000;
@@ -260,6 +259,71 @@ namespace client
                 mgrTimer.Start();
             else
                 mgrTimer.Stop();
+        }
+
+        private void Form1_Load(object senderl, EventArgs el)
+        {
+            mgr = new MouseGestureRecognition2();
+            doubleClickTimer = new System.Timers.Timer();
+            loopTimer = new System.Timers.Timer();
+            stopwatchTimer = new System.Diagnostics.Stopwatch();
+
+            System.Console.Out.WriteLine("Started program.");
+
+            wsHandle = new WebSocket("ws://167.114.242.19/");
+
+            // dodanie funkcji callback
+            wsHandle.OnMessage += OnMessage;
+            wsHandle.OnClose += OnClose;
+            wsHandle.OnError += OnError;
+            wsHandle.OnOpen += OnOpen;
+
+            // pobranie pozycji myszy
+            WinCursorClient.POINT cursorPos = new WinCursorClient.POINT();
+            WinCursorClient.GetCursorPos(ref cursorPos);
+            posX = (double)cursorPos.x;
+            posY = (double)cursorPos.y;
+
+            // połączenie z serwerem
+            EstablishConnection();
+
+            // timer obsługujący podwójne kliknięcie
+            doubleClickTimer = new System.Timers.Timer();
+            doubleClickTimer.AutoReset = false;
+            doubleClickTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
+            {
+                WinCursorClient.POINT p = new WinCursorClient.POINT();
+                WinCursorClient.GetCursorPos(ref p);
+                WinCursorClient.mouse_event(WinCursorClient.MOUSEEVENTF_LEFTDOWN | WinCursorClient.MOUSEEVENTF_LEFTUP, (uint)p.x, (uint)p.y, 0, (System.UIntPtr)0);
+            };
+
+            // timer obsługujący usługę rozpoznawania gestów
+            mgrTimer = new System.Timers.Timer();
+            int delay = 2;
+            mgrTimer.Interval = delay;
+            mgrTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
+            {
+                mgr.TimerTick(delay);
+            };
+            // mgrTimer.Enabled = true;
+
+            // timer obsługujący wyliczanie prędkości
+            loopTimer.Interval = 30;
+            loopTimer.Elapsed += LoopTimerTick;
+            loopTimer.Start();
+            stopwatchTimer.Start();
+            prevTicks = stopwatchTimer.ElapsedTicks;
+        }
+
+        private void oProgramieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string text = "Politechnika Warszawska\nWydział Elektryczny\n"+
+                "Projekt zespołowy 2015/2016\n\nOpiekun:\ndr inż. Tomasz Leś\n\n" +
+                "Autorzy:\n"+
+                "Michał Charyton\nDominik Jakubiak\nMarcin Konczewski\n" +
+                "Paweł Mac\nJan Orliński";
+            string caption = "O programie";
+            MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.None);
         }
     }
 }
