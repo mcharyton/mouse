@@ -29,11 +29,11 @@ router.post('/:id', function (req, res) {
             emituj(body, id);
         lastBody = body;
 
-        res.send('POST handler for api');
+        res.status(200).send('POST handler for api');
         res.end('Odpowiedzialem');
     });
     process.on('noUserId',function(id){
-       res.send(401, 'No such user: '+ id);
+       res.status(401).send('No such user: '+ id);
     });
 });
 
