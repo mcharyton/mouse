@@ -20,17 +20,22 @@ function handleOrientation(event) {
         // We constrain the x value to the range [-90,90]
         if (x > 90) {
             x = 90
-        }
-        if (x < -90) {
+        } else if (x < -90) {
             x = -90
         }
+        if (y > 90) {
+            y = 90
+        } else if (y < -90) {
+            y = -90
+        }
+
 
         // To make computation easier we shift the range of
         // x and y to [0,180]
-        x += 90;
-        y += 90;
-        var xInt = Math.floor(x) - 90;
-        var yInt = Math.floor(y) - 90;
+        //x += 90;
+        //y += 90;
+        var xInt = Math.floor(x);
+        var yInt = Math.floor(y);
 
         output.innerHTML = "X: " + xInt + "\n";
         output.innerHTML += "Y: " + yInt + "\n";
@@ -43,8 +48,8 @@ function handleOrientation(event) {
 
         // 10 is half the size of the ball
         // It center the positioning point to the center of the ball
-        ball.style.left = (maxX * x / 180 - 10) + "px";
-        ball.style.top = (maxY * y / 180 - 10) + "px";
+        ball.style.left = (maxX * x / 90 - 10) + "px";
+        ball.style.top = (maxY * y / 90 - 10) + "px";
 
         lastY = yInt;
         lastX = xInt;
