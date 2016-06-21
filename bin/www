@@ -105,13 +105,15 @@ wss.on('connection', function (ws) {
     connections[connection.id] = connection;
     var connectionLog={id: connection.id, details: connections[connection.id]};
 
-    fs.writeFile(connectionsFile, JSON.stringify(connectionLog, null, 4), function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Connection saved to file');
-        }
-    });
+    console.log(connections[connection.id]);
+
+    //fs.writeFile(connectionsFile, JSON.stringify(connectionLog, null, 4), function (err) {
+    //    if (err) {
+    //        console.log(err);
+    //    } else {
+    //        console.log('Connection saved to file');
+    //    }
+    //});
 
     ws.send(JSON.stringify({type: "id", x: connection.id}));
 
