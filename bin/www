@@ -125,7 +125,7 @@ function sendToConnectionId(connectionID, data, ws) {
     var connection = connections[connectionID];
     if (connection && connection.connected) {
         connection.send(data);
-        ws.send(JSON.stringify('test'));
+        ws.send(JSON.stringify({type: 'data'}));
     }
-    ws.send(JSON.stringify('test2'));
+    ws.send(JSON.stringify({type: 'data2'}));
 }
