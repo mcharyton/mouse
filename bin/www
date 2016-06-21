@@ -105,7 +105,7 @@ wss.on('connection', function (ws) {
     connections[connection.id] = connection;
     var connectionLog={id: connection.id, details: connections[connection.id]};
 
-    console.log(JSON.toString(connections[connection.id]));
+    console.log(JSON.stringify(connections[connection.id]));
 
     //fs.writeFile(connectionsFile, JSON.stringify(connectionLog, null, 4), function (err) {
     //    if (err) {
