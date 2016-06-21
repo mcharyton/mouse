@@ -16,7 +16,7 @@ function RButton() {
 var lastData;
 function sendAjax(data) {
     var id = $("#id-field").val();
-    if (data !== lastData)
+    if (data != lastData)
         $.ajax({
             type: "POST",
             url: "http://167.114.242.19/api/" + id,
