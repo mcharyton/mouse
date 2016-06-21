@@ -38,6 +38,8 @@ namespace client
         int lastPosX = 0;
         int lastPosY = 0;
 
+        int connStatus;
+
         int nextConnectionAttemptCounter;
 
         double speedX, speedY;
@@ -48,6 +50,7 @@ namespace client
             InitializeComponent();
 
             nextConnectionAttemptCounter = 0;
+            connStatus = 0;
         }
 
         
@@ -80,7 +83,6 @@ namespace client
                         //Console.Out.WriteLine("touch");
                         speedX = fun(data.x) * 200;
                         speedY = fun(data.y) * 200;
-                        //MoveCursor(data.x/2 , data.y /2);
                         break;
                     case "joystick":
                         //Console.Out.WriteLine("touch");
@@ -113,8 +115,16 @@ namespace client
         void OnClose(object sender, CloseEventArgs e)
         {
             System.Console.Out.WriteLine("Connection closed.");
-            labelStatus.Text = "Zerwano połączenie.";
-            labelId.Text = "";
+            if (connStatus == 1)
+            {
+                labelStatus.Text = "Zerwano połączenie.";
+                labelId.Text = "(brak)";
+                connStatus = 0;
+            }
+            else
+            {
+                labelStatus.Text = "próbuje nawiązać połączenie...";
+            }
             //((WebSocket)sender).ConnectAsync();
             EstablishConnection();
         }
@@ -129,6 +139,7 @@ namespace client
         // callback dla otwarcia połączenia WebSocket
         void OnOpen(object sender, EventArgs e)
         {
+            connStatus = 1;
             System.Console.Out.WriteLine("Connection established.");
             labelStatus.Text = "Poprawnie połączono.";
             this.Update();
@@ -165,7 +176,7 @@ namespace client
 
         void EstablishConnection()
         {
-            wsHandle.Connect();
+            wsHandle.ConnectAsync();
             /*if (wsHandle.IsAlive)
                 return;
 
@@ -247,7 +258,7 @@ namespace client
 
             if ((int)posX != lastPosX || (int)posY != lastPosY)
             {
-                MoveCursorAbsolute((int)posX, (int)posY);
+                MoveCursor((int)deltaPosX, (int)deltaPosY);
                 lastPosX = (int)posX;
                 lastPosY = (int)posY;
             }
