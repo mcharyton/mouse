@@ -92,7 +92,7 @@ function onListening() {
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
 var fs = require('fs');
-var transmissionFile = '/logs/transmission';
+var transmissionFile = 'logs/transmission';
 
 var connections = {};
 var connectionIDCounter = 0;
@@ -103,15 +103,13 @@ wss.on('connection', function (ws) {
     connection.id = connectionIDCounter++;
     connections[connection.id] = connection;
 
-    console.log(JSON.stringify(JSON.toString(connections[connection.id])));
-
     ws.send(JSON.stringify({type: "id", x: connection.id}));
 
     // Now you can access the connection with connections[id] and find out
     // the id for a connection with connection.id
     console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
     ws.on('close', function () {
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
+        console.log((new Date()) + ' Peer disconnected. ' +
             "Connection ID: " + connection.id);
         // Make sure to remove closed connections from the global pool
         delete connections[connection.id];
