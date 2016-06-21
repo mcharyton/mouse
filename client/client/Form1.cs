@@ -53,12 +53,14 @@ namespace client
             connStatus = 0;
         }
 
+
+
         
-        double fun(int x)
+        double fun(int x, int cx)
         {
             double y;
             double dx = (double)x;
-            dx /= 5.0;
+            dx /= (double)cx;
             y = 10e-4 * Math.Pow(dx, 4) + 0.1 * Math.Pow(dx, 2);
             if (x < 0)
                 y = -y;
@@ -81,13 +83,13 @@ namespace client
                 {
                     case "touch":
                         //Console.Out.WriteLine("touch");
-                        speedX = fun(data.x) * 200;
-                        speedY = fun(data.y) * 200;
+                        speedX = fun(data.x,1) * 2000;
+                        speedY = fun(data.y,1) * 2000;
                         break;
                     case "joystick":
                         //Console.Out.WriteLine("touch");
-                        speedX = fun(data.x) * 1000;
-                        speedY = fun(data.y) * 1000;
+                        speedX = fun(data.x,5) * 1000;
+                        speedY = fun(data.y,5) * 1000;
                         break;
 
                     case "btn":
