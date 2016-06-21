@@ -91,18 +91,34 @@ function onListening() {
 
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({server: server});
+var fs = require('fs');
+var transmissionFile = '/logs/transmission';
+var connectionsFile = '/logs/connections';
+
 var connections = {};
+var connectionIDCounter = 0;
+
 wss.on('connection', function (ws) {
     var connection = ws;
     // Store a reference to the connection using an incrementing ID
-    connection.id = connectionIDCounter ++;
+    connection.id = connectionIDCounter++;
     connections[connection.id] = connection;
+    var connectionLog={id: connection.id, details: connections[connection.id]};
+
+    fs.writeFile(connectionsFile, JSON.stringify(connectionLog, null, 4), function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Connection saved to file');
+        }
+    });
+
     ws.send(JSON.stringify({type: "id", x: connection.id}));
 
     // Now you can access the connection with connections[id] and find out
     // the id for a connection with connection.id
     console.log((new Date()) + ' Connection ID ' + connection.id + ' accepted.');
-    ws.on('close', function(reasonCode, description) {
+    ws.on('close', function () {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected. ' +
             "Connection ID: " + connection.id);
         // Make sure to remove closed connections from the global pool
@@ -111,23 +127,18 @@ wss.on('connection', function (ws) {
 
     process.on('dataAdd', function (dane, id) {
         var client = connections[id];
-        console.log(dane);
-        console.log(id);
+        var log = {id: id, data: dane};
+
+        fs.writeFile(transmissionFile, JSON.stringify(log, null, 4), function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Transmission saved to file');
+            }
+        });
         client.send(JSON.stringify(dane));
-        //sendToConnectionId(connections[id],JSON.stringify(dane),ws);
     });
 
 });
 
 
-var connectionIDCounter = 0;
-
-// Send a message to a connection by its connectionID
-function sendToConnectionId(connectionID, data, ws) {
-    var connection = connections[connectionID];
-    if (connection && connection.connected) {
-        connection.send(data);
-        ws.send(JSON.stringify({type: 'data'}));
-    }
-    ws.send(JSON.stringify({type: 'data2'}));
-}
