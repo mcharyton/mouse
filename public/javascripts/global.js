@@ -18,7 +18,7 @@ var lastMove = 0;
 function sendAjax(data) {
     var id = $("#id-field").val();
     if (Date.now() - lastMove > 50) {
-        if (data != lastData) {
+       // if (data != lastData) {
             $.ajax({
                 type: "POST",
                 url: "http://167.114.242.19/api/" + id,
@@ -29,8 +29,8 @@ function sendAjax(data) {
                 error: function () {
                 }
             });
-            lastData = data;
-        }
+        //    lastData = data;
+        //}
         lastMove = Date.now();
     }
 }
