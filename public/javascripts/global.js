@@ -14,18 +14,23 @@ function RButton() {
     sendAjax(data);
 }
 var lastData;
+var lastMove = 0;
 function sendAjax(data) {
     var id = $("#id-field").val();
-    if (data !== lastData)
-        $.ajax({
-            type: "POST",
-            url: "http://167.114.242.19/api/" + id,
-            data: data,
-            dataType: "json",
-            success: function () {
-            },
-            error: function () {
-            }
-        });
-    lastData = data;
+    if (Date.now() - lastMove > 50) {
+        if (data != lastData) {
+            $.ajax({
+                type: "POST",
+                url: "http://167.114.242.19/api/" + id,
+                data: data,
+                dataType: "json",
+                success: function () {
+                },
+                error: function () {
+                }
+            });
+            lastData = data;
+        }
+        lastMove = Date.now();
+    }
 }
