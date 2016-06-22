@@ -58,7 +58,7 @@
 
     setInterval(function () {
         var data = {type: "joystick", x: joystick.deltaX(), y: joystick.deltaY()};
-        if (joystick.deltaX() != lastX || joystick.deltaY() !== lastY)
+//        if (joystick.deltaX() != lastX || joystick.deltaY() !== lastY)
             sendAjax(data);
 
         var outputEl = document.getElementById('result');
@@ -66,8 +66,8 @@
                 'X: ' + joystick.deltaX() + '<br/>'
                 + ' Y: ' + joystick.deltaY() + '<br/>';
 
-        lastY = joystick.deltaY();
-        lastX = joystick.deltaX();
+//        lastY = joystick.deltaY();
+//        lastX = joystick.deltaX();
     }, 1 / 5 * 100);
 
 </script>
