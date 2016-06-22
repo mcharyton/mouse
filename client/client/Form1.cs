@@ -88,8 +88,10 @@ namespace client
                         break;
                     case "joystick":
                         //Console.Out.WriteLine("touch");
-                        speedX = fun(data.x,5) * 1000;
-                        speedY = fun(data.y,5) * 1000;
+                        //speedX = fun(data.x,10) * 1500;
+                        //speedY = fun(data.y,10) * 1500;
+                        speedX = data.x*100000;
+                        speedY = data.y*100000;
                         break;
 
                     case "btn":
